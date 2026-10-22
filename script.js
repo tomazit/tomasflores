@@ -34,14 +34,14 @@
   let expandedPreviewTrigger = null;
 
   const websiteExamples = [
-    { id: 'landing', label: 'Landing page', icon: 'spark', eyebrow: 'UNA SOLA PÁGINA · UNA IDEA CLARA', brand: 'AURA', navigation: 'Estudio  ·  Servicios  ·  Contacto', title: 'Tu próxima idea merece espacio.', description: 'Una página directa, pensada para presentar un producto, servicio o lanzamiento.', action: 'Conocer el proyecto', kind: 'landing' },
-    { id: 'corporate', label: 'Sitio corporativo', icon: 'building', eyebrow: 'UNA PRESENCIA SÓLIDA PARA TU MARCA', brand: 'ESTUDIO NORTE', navigation: 'Estudio  ·  Servicios  ·  Proyectos', title: 'Espacios que cuentan historias.', description: 'Una web para explicar quién sos, qué hacés y por qué elegirte.', action: 'Ver proyectos', kind: 'corporate' },
-    { id: 'commerce', label: 'eCommerce', icon: 'bag', eyebrow: 'TU TIENDA, ABIERTA TODOS LOS DÍAS', brand: 'CASA BOSQUE', navigation: 'Objetos  ·  Colecciones  ·  Bolsa (0)', title: 'Pequeños objetos, grandes momentos.', description: 'Una tienda simple de recorrer, con productos, detalles y una compra clara.', action: 'Explorar colección', kind: 'commerce' }
+    { id: 'landing', label: 'Landing page', icon: 'spark', guideTitle: 'Una página. Un objetivo claro.', guideSummary: 'Una página enfocada en presentar una propuesta y llevar a una acción concreta: consultar, reservar o comprar.', idealFor: 'Lanzamientos, campañas, servicios puntuales o una nueva marca que necesita darse a conocer.', includes: 'Presentación, beneficios, prueba social y un llamado a la acción directo.', complexity: 'Baja', complexityLevel: 1, complexityNote: 'Menos páginas y un recorrido simple. Puede crecer con integraciones o contenido especial.', eyebrow: 'UNA SOLA PÁGINA · UNA IDEA CLARA', brand: 'AURA', navigation: 'Estudio  ·  Servicios  ·  Contacto', title: 'Tu próxima idea merece espacio.', description: 'Una página directa, pensada para presentar un producto, servicio o lanzamiento.', action: 'Conocer el proyecto', kind: 'landing' },
+    { id: 'corporate', label: 'Sitio corporativo', icon: 'building', guideTitle: 'Toda tu marca, bien presentada.', guideSummary: 'Un sitio con varias secciones para explicar quién sos, qué ofrecés y por qué elegirte, con una presencia sólida y profesional.', idealFor: 'Empresas, profesionales, estudios y organizaciones con varios servicios o proyectos para mostrar.', includes: 'Inicio, servicios, equipo o historia, trabajos destacados y formas de contacto.', complexity: 'Media', complexityLevel: 2, complexityNote: 'Requiere organizar varias secciones. Idiomas, formularios e integraciones suman alcance.', eyebrow: 'UNA PRESENCIA SÓLIDA PARA TU MARCA', brand: 'ESTUDIO NORTE', navigation: 'Estudio  ·  Servicios  ·  Proyectos', title: 'Espacios que cuentan historias.', description: 'Una web para explicar quién sos, qué hacés y por qué elegirte.', action: 'Ver proyectos', kind: 'corporate' },
+    { id: 'commerce', label: 'eCommerce', icon: 'bag', guideTitle: 'Tu catálogo, listo para vender.', guideSummary: 'Una tienda online que organiza tus productos y acompaña a cada cliente desde el descubrimiento hasta la compra.', idealFor: 'Marcas y comercios que quieren vender productos por internet y gestionar pedidos.', includes: 'Catálogo, fichas de producto, carrito y conexión con pagos y envíos según el proyecto.', complexity: 'Alta', complexityLevel: 3, complexityNote: 'Productos, pagos, logística y gestión requieren más configuración e integración.', eyebrow: 'TU TIENDA, ABIERTA TODOS LOS DÍAS', brand: 'CASA BOSQUE', navigation: 'Objetos  ·  Colecciones  ·  Bolsa (0)', title: 'Pequeños objetos, grandes momentos.', description: 'Una tienda simple de recorrer, con productos, detalles y una compra clara.', action: 'Explorar colección', kind: 'commerce' }
   ];
 
   const sections = {
     sites: renderSites(),
-    about: `<div class="about-section"><p class="content-kicker">01 &nbsp; / &nbsp; SOBRE MÍ</p><div class="about-portrait"><img src="${ABOUT_PORTRAIT}" alt="Retrato de Tomás" loading="lazy" decoding="async"></div><h1 class="about-title">Hola, soy<br>Tomás.</h1><p class="content-lead about-lead">Desarrollo sitios web a medida: claros, rápidos y bien cuidados.</p><p class="content-detail about-detail">Estudiante de Ingeniería en Sistemas y desarrollador web. Empecé a aprender por mi cuenta en 2022 con HTML, CSS y JavaScript, y desde entonces no paré de sumar herramientas. Hoy armo sitios a medida, cuidando el diseño y los detalles.</p><div class="about-links"><button class="text-action" type="button" data-target="projects">VER EJEMPLOS <span>→</span></button><a class="about-link" href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">GitHub</a><a class="about-link" href="${EMAIL_URL}" target="_blank" rel="noopener noreferrer">Correo</a></div><aside class="about-status" aria-label="Estado y ubicación"><span>Rosario, Argentina</span><span class="availability"><i aria-hidden="true"></i>Disponible para proyectos</span></aside></div>`,
+    about: `<div class="about-section"><p class="content-kicker">01 &nbsp; / &nbsp; SOBRE MÍ</p><div class="about-portrait"><img src="${ABOUT_PORTRAIT}" alt="Retrato de Tomás" loading="lazy" decoding="async"></div><h1 class="about-title">Hola, soy<br>Tomás.</h1><p class="content-lead about-lead">Desarrollo sitios web a medida: claros, rápidos y bien cuidados.</p><p class="content-detail about-detail">Estudiante de Ingeniería en Sistemas y desarrollador web. Empecé a aprender por mi cuenta en 2022 con HTML, CSS y JavaScript, y desde entonces no paré de sumar herramientas. Hoy armo sitios a medida, cuidando el diseño y los detalles.</p><div class="about-links"><button class="text-action is-disabled" type="button" disabled aria-disabled="true">VER EJEMPLOS <span>→</span></button><a class="about-link" href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">GitHub</a><a class="about-link" href="${EMAIL_URL}" target="_blank" rel="noopener noreferrer">Correo</a></div><aside class="about-status" aria-label="Estado y ubicación"><span>Rosario, Argentina</span><span class="availability"><i aria-hidden="true"></i>Disponible para proyectos</span></aside></div>`,
     projects: renderProjects(),
     contact: `<div class="contact-section"><p class="content-kicker">03 &nbsp; / &nbsp; CONTACTO</p><h1>Hablemos<span>.</span></h1><p class="content-lead">¿Tenés una idea en mente?</p><p class="content-detail">Contame qué querés crear. Estoy listo para darle forma.</p><div class="contact-actions"><a class="contact-action" href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7M15 21v-3.3c0-1 .1-1.7-.5-2.3 3.3-.4 6.8-1.6 6.8-7.4a5.8 5.8 0 0 0-1.5-4A5.4 5.4 0 0 0 19.7 0S18.5-.4 15 2a13.5 13.5 0 0 0-7 0C4.5-.4 3.3 0 3.3 0a5.4 5.4 0 0 0-.1 4A5.8 5.8 0 0 0 1.7 8c0 5.8 3.5 7 6.8 7.4-.6.6-.6 1.2-.5 2.3V21"></path></svg><span>GitHub</span></a><a class="contact-action" href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"></path><path d="M9 9.2c.3 2.3 2 4 4.3 4.6l1.2-1.1 2 .9c-.1 1.1-.9 1.8-2 1.8-3.5-.2-6.9-3.6-7-7.1 0-1.1.7-1.9 1.8-2l.9 2L9 9.2Z"></path></svg><span>WhatsApp</span></a><a class="contact-action" href="${EMAIL_URL}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"></rect><path d="m4.5 7 7.5 5.5L19.5 7"></path></svg><span>Correo</span></a></div></div>`
   };
@@ -62,13 +62,25 @@
         <div class="site-tabs" role="tablist" aria-label="Tipos de sitio web">${tabs}</div>
         <div class="sites-heading"><p class="content-kicker">00 &nbsp; / &nbsp; SITIOS WEB</p><h1>Ideas digitales<span>.</span></h1><button class="sites-contact" type="button" data-target="contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg><span>Hablemos</span><i>↗</i></button></div>
       </div>
+      ${renderSiteGuide(websiteExamples[0], 0)}
       <div class="site-preview" id="site-preview" role="tabpanel" aria-labelledby="site-tab-landing">
-        <div class="site-browser-bar"><span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser-address">vista previa · ejemplo conceptual</span><button class="site-expand" type="button" aria-label="Expandir demostración" aria-expanded="false" aria-controls="site-preview" title="Ver en pantalla completa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4M4 8l6-6M20 8l-6-6M20 16l-6 6M4 16l6 6"></path></svg><span>Expandir</span></button></div>
+        <div class="site-browser-bar"><span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span><button class="site-expand" type="button" aria-label="Expandir demostración" aria-expanded="false" aria-controls="site-preview" title="Ver en pantalla completa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4M15 3h4a2 2 0 0 1 2 2v4M21 15v4a2 2 0 0 1-2 2h-4M9 21H5a2 2 0 0 1-2-2v-4"></path></svg><span>Expandir</span></button></div>
         <button class="site-collapse" type="button" aria-label="Volver a la vista previa" title="Desmaximizar ventana"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v5H3M16 3v5h5M3 16h5v5M21 16h-5v5"></path></svg><span>Volver a la vista previa</span></button>
         <div class="site-mockup" data-site-kind="landing" data-light="1"></div>
+        <div class="site-preview-fade" aria-hidden="true"></div>
+        <button class="site-more" type="button" aria-label="Ver más de la demostración" aria-expanded="false" aria-controls="site-preview"><span>Ver más</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
       </div>
       <div class="site-footer"><div class="site-footer-copy"><p class="site-note">Cada sitio se diseña a medida. Estos ejemplos muestran distintas formas de presentar tu proyecto.</p><p class="site-infrastructure"><span>Dominio y DNS</span> Cloudflare <i aria-hidden="true">·</i> <span>Hosting</span> GitHub Pages</p></div><nav class="site-social" aria-label="Redes y contacto"><a href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7M15 21v-3.3c0-1 .1-1.7-.5-2.3 3.3-.4 6.8-1.6 6.8-7.4a5.8 5.8 0 0 0-1.5-4A5.4 5.4 0 0 0 19.7 0S18.5-.4 15 2a13.5 13.5 0 0 0-7 0C4.5-.4 3.3 0 3.3 0a5.4 5.4 0 0 0-.1 4A5.8 5.8 0 0 0 1.7 8c0 5.8 3.5 7 6.8 7.4-.6.6-.6 1.2-.5 2.3V21"></path></svg></a><a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"></path><path d="M9 9.2c.3 2.3 2 4 4.3 4.6l1.2-1.1 2 .9c-.1 1.1-.9 1.8-2 1.8-3.5-.2-6.9-3.6-7-7.1 0-1.1.7-1.9 1.8-2l.9 2L9 9.2Z"></path></svg></a><a href="${EMAIL_URL}" aria-label="Correo electrónico" title="Correo"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></a></nav></div>
     </div>`;
+  }
+
+  function renderSiteGuide(example, index) {
+    const bars = [0, 1, 2].map(level => `<i${level < example.complexityLevel ? ' class="is-filled"' : ''}></i>`).join('');
+    return `<section class="site-guide" aria-labelledby="site-guide-title" aria-live="polite">
+      <div class="site-guide-main"><p class="site-guide-kicker"><span>GUÍA PARA ELEGIR</span><span>${String(index + 1).padStart(2, '0')} / 03</span></p><h2 id="site-guide-title">${example.guideTitle}</h2><p class="site-guide-summary">${example.guideSummary}</p></div>
+      <div class="site-guide-facts"><article><span>IDEAL PARA</span><p>${example.idealFor}</p></article><article><span>SUELE INCLUIR</span><p>${example.includes}</p></article></div>
+      <aside class="site-guide-complexity" aria-label="Complejidad orientativa: ${example.complexity}, nivel ${example.complexityLevel} de 3"><div class="site-guide-level"><span>COMPLEJIDAD</span><strong>${example.complexity}</strong></div><div class="site-guide-meter" aria-hidden="true">${bars}</div><p>${example.complexityNote}</p></aside>
+    </section>`;
   }
 
   function renderWebsiteExample(example) {
@@ -116,15 +128,23 @@
       tab.setAttribute('aria-selected', String(selected));
       tab.tabIndex = selected ? 0 : -1;
     });
+    const guide = content.querySelector('.site-guide');
+    if (guide) guide.classList.add('is-changing');
     const mockup = content.querySelector('.site-mockup');
     const panel = content.querySelector('#site-preview');
-    if (!mockup || !panel) return;
+    if (!mockup || !panel) {
+      if (guide) guide.classList.remove('is-changing');
+      return;
+    }
     mockup.classList.add('is-changing');
     window.setTimeout(() => {
+      guide?.replaceWith(document.createRange().createContextualFragment(renderSiteGuide(example, websiteExamples.indexOf(example))));
+      const updatedGuide = content.querySelector('.site-guide');
       mockup.dataset.siteKind = example.kind;
       mockup.dataset.light = String(websiteExamples.findIndex(item => item.id === id) + 1);
       mockup.innerHTML = renderWebsiteExample(example);
       panel.setAttribute('aria-labelledby', `site-tab-${example.id}`);
+      requestAnimationFrame(() => updatedGuide?.classList.remove('is-changing'));
       requestAnimationFrame(() => mockup.classList.remove('is-changing'));
     }, reduceMotion ? 0 : 150);
   }
@@ -139,7 +159,7 @@
     panel.setAttribute('aria-modal', 'true');
     panel.setAttribute('aria-label', `Demostración a pantalla completa: ${activeExample?.label || 'sitio web'}`);
     panel.scrollTop = 0;
-    trigger.setAttribute('aria-expanded', 'true');
+    panel.querySelectorAll('.site-expand, .site-more').forEach(button => button.setAttribute('aria-expanded', 'true'));
     document.body.classList.add('has-expanded-site');
     content.querySelector('.site-collapse')?.focus();
   }
@@ -154,7 +174,7 @@
     document.body.classList.remove('has-expanded-site');
     const trigger = expandedPreviewTrigger;
     expandedPreviewTrigger = null;
-    trigger?.setAttribute('aria-expanded', 'false');
+    panel.querySelectorAll('.site-expand, .site-more').forEach(button => button.setAttribute('aria-expanded', 'false'));
     trigger?.focus();
   }
 
@@ -362,7 +382,7 @@
     openSection(button.dataset.target);
   });
   content.addEventListener('click', e => {
-    const expandButton = e.target.closest('.site-expand');
+    const expandButton = e.target.closest('.site-expand, .site-more');
     if (expandButton) {
       expandWebsiteExample(expandButton);
       return;
@@ -434,6 +454,7 @@
   });
 
   function openSection(section) {
+    if (section === 'projects') return;
     stage.querySelector('.hero > .about-status')?.remove();
     if (section === 'sites') {
       if (stage.classList.contains('sites-entering')) return;
