@@ -1,0 +1,424 @@
+(() => {
+  const canvas = document.getElementById('orb');
+  const ctx = canvas.getContext('2d');
+  const sitesCanvas = document.getElementById('sites-field');
+  const sitesCtx = sitesCanvas.getContext('2d');
+  const wrapper = canvas.parentElement;
+  const stage = wrapper.closest('.stage');
+  const menu = document.querySelector('.menu');
+  const content = document.getElementById('section-content');
+  const backButton = document.querySelector('.back-button');
+  const greeting = document.getElementById('greeting');
+  const points = [];
+  const sitesDots = Array.from({ length: 2200 }, () => ({ x: Math.random(), y: Math.random(), speed: .0025 + Math.random() * .0045, size: .35 + Math.random() * 1.05, alpha: .2 + Math.random() * .7, glint: Math.random() > .965 }));
+  const ABOUT_PORTRAIT = 'assets/tomas-profile.webp';
+  const GITHUB_URL = 'https://github.com/tomazit';
+  const EMAIL_URL = 'https://mail.google.com/mail/?view=cm&fs=1&to=rainbow85612@gmail.com&su=Consulta%20por%20un%20sitio%20web&body=Hola%20Tom%C3%A1s%2C%20vi%20tu%20portfolio%20y%20me%20gustar%C3%ADa%20consultarte%20por%20un%20sitio%20web.';
+  const WHATSAPP_URL = 'https://wa.me/5493413690901?text=Hola%20Tom%C3%A1s%2C%20vi%20tu%20portfolio%20y%20me%20gustar%C3%ADa%20consultarte%20por%20un%20sitio%20web.';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canParallax = !reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const projectPreview = document.getElementById('project-preview');
+  const count = 1400;
+  const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+  let width = 0, height = 0, dpr = 1, rotation = 0, lastTime = 0, baseOrbWidth = 0, canvasCapacityWidth = 0;
+  let sitesWidth = 0, sitesHeight = 0, sitesDpr = 1;
+  let pointer = { x: 0, y: 0, targetX: 0, targetY: 0, hover: 0, targetHover: 0 };
+
+  const projects = [
+    { title: 'Tienda de ropa', description: 'Una experiencia de compra simple y cuidada.', technologies: ['Diseño web', 'E-commerce'], yearOrStatus: 'Próximamente', image: 'assets/projects/tienda-de-ropa.webp', url: 'https://example.com/tienda-de-ropa', alt: 'Vista conceptual de una tienda de ropa, proyecto próximamente.' },
+    { title: 'Estudio creativo', description: 'Un sitio visual para un estudio independiente.', technologies: ['Identidad', 'Desarrollo web'], yearOrStatus: 'Próximamente', image: 'assets/projects/estudio-creativo.webp', url: 'https://example.com/estudio-creativo', alt: 'Vista conceptual de un sitio para un estudio creativo, proyecto próximamente.' },
+    { title: 'Panel de métricas', description: 'Datos importantes, claros de un vistazo.', technologies: ['Panel de datos', 'Visualización'], yearOrStatus: 'En curso', image: 'assets/projects/panel-de-metricas.webp', url: 'https://example.com/panel-de-metricas', alt: 'Vista conceptual de un panel de métricas, proyecto próximamente.' },
+    { title: 'Portfolio interactivo', description: 'Una presentación digital con movimiento sutil.', technologies: ['Portfolio', 'Interacción'], yearOrStatus: 'Próximamente', image: 'assets/projects/portfolio-interactivo.webp', url: 'https://example.com/portfolio-interactivo', alt: 'Vista conceptual de un portfolio interactivo, proyecto próximamente.' }
+  ];
+  let activePreviewIndex = 0;
+
+  const websiteExamples = [
+    { id: 'landing', label: 'Landing page', icon: 'spark', eyebrow: 'UNA SOLA PÁGINA · UNA IDEA CLARA', brand: 'AURA', navigation: 'Estudio  ·  Servicios  ·  Contacto', title: 'Tu próxima idea merece espacio.', description: 'Una página directa, pensada para presentar un producto, servicio o lanzamiento.', action: 'Conocer el proyecto', kind: 'landing' },
+    { id: 'corporate', label: 'Sitio corporativo', icon: 'building', eyebrow: 'UNA PRESENCIA SÓLIDA PARA TU MARCA', brand: 'ESTUDIO NORTE', navigation: 'Estudio  ·  Servicios  ·  Proyectos', title: 'Espacios que cuentan historias.', description: 'Una web para explicar quién sos, qué hacés y por qué elegirte.', action: 'Ver proyectos', kind: 'corporate' },
+    { id: 'commerce', label: 'eCommerce', icon: 'bag', eyebrow: 'TU TIENDA, ABIERTA TODOS LOS DÍAS', brand: 'CASA BOSQUE', navigation: 'Objetos  ·  Colecciones  ·  Bolsa (0)', title: 'Pequeños objetos, grandes momentos.', description: 'Una tienda simple de recorrer, con productos, detalles y una compra clara.', action: 'Explorar colección', kind: 'commerce' }
+  ];
+
+  const sections = {
+    sites: renderSites(),
+    about: `<div class="about-section"><p class="content-kicker">01 &nbsp; / &nbsp; SOBRE MÍ</p><div class="about-portrait"><img src="${ABOUT_PORTRAIT}" alt="Retrato de Tomás" loading="lazy" decoding="async"></div><h1 class="about-title">Hola, soy<br>Tomás.</h1><p class="content-lead about-lead">Desarrollo sitios web a medida: claros, rápidos y bien cuidados.</p><p class="content-detail about-detail">Estudiante de Ingeniería en Sistemas y desarrollador web. Empecé a aprender por mi cuenta en 2022 con HTML, CSS y JavaScript, y desde entonces no paré de sumar herramientas. Hoy armo sitios a medida, cuidando el diseño y los detalles.</p><div class="about-links"><button class="text-action" type="button" data-target="projects">VER PROYECTOS <span>→</span></button><a class="about-link" href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">GitHub</a><a class="about-link" href="${EMAIL_URL}" target="_blank" rel="noopener noreferrer">Correo</a></div><aside class="about-status" aria-label="Estado y ubicación"><span>Rosario, Argentina</span><span class="availability"><i aria-hidden="true"></i>Disponible para proyectos</span></aside></div>`,
+    projects: renderProjects(),
+    contact: `<div class="contact-section"><p class="content-kicker">03 &nbsp; / &nbsp; CONTACTO</p><h1>Hablemos<span>.</span></h1><p class="content-lead">¿Tenés una idea en mente?</p><p class="content-detail">Contame qué querés crear. Estoy listo para darle forma.</p><div class="contact-actions"><a class="contact-action" href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7M15 21v-3.3c0-1 .1-1.7-.5-2.3 3.3-.4 6.8-1.6 6.8-7.4a5.8 5.8 0 0 0-1.5-4A5.4 5.4 0 0 0 19.7 0S18.5-.4 15 2a13.5 13.5 0 0 0-7 0C4.5-.4 3.3 0 3.3 0a5.4 5.4 0 0 0-.1 4A5.8 5.8 0 0 0 1.7 8c0 5.8 3.5 7 6.8 7.4-.6.6-.6 1.2-.5 2.3V21"></path></svg><span>GitHub</span></a><a class="contact-action" href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"></path><path d="M9 9.2c.3 2.3 2 4 4.3 4.6l1.2-1.1 2 .9c-.1 1.1-.9 1.8-2 1.8-3.5-.2-6.9-3.6-7-7.1 0-1.1.7-1.9 1.8-2l.9 2L9 9.2Z"></path></svg><span>WhatsApp</span></a><a class="contact-action" href="${EMAIL_URL}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"></rect><path d="m4.5 7 7.5 5.5L19.5 7"></path></svg><span>Correo</span></a></div></div>`
+  };
+
+  function iconMarkup(icon) {
+    const paths = {
+      spark: '<path d="m12 3 1.6 5.4L19 10l-5.4 1.6L12 17l-1.6-5.4L5 10l5.4-1.6L12 3Z"></path><path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"></path>',
+      building: '<path d="M4 20V5l8-2v17M12 8h8v12M2 20h20M7 7h2M7 11h2M7 15h2M15 11h2M15 15h2"></path>',
+      bag: '<path d="M4 8h16l-1 12H5L4 8Z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path>'
+    };
+    return `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[icon] || paths.spark}</svg>`;
+  }
+
+  function renderSites() {
+    const tabs = websiteExamples.map((example, index) => `<button class="site-type${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="site-tab-${example.id}" aria-selected="${index === 0}" aria-controls="site-preview" tabindex="${index === 0 ? '0' : '-1'}" data-site-type="${example.id}"><span class="site-icon" aria-hidden="true">${iconMarkup(example.icon)}</span>${example.label}</button>`).join('');
+    return `<div class="sites-section"><div class="sites-topbar"><div class="site-tabs" role="tablist" aria-label="Tipos de sitio web">${tabs}</div><div class="sites-heading"><p class="content-kicker">00 &nbsp; / &nbsp; SITIOS WEB</p><h1>Ideas digitales<span>.</span></h1><button class="sites-contact" type="button" data-target="contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg><span>Hablemos</span><i>↗</i></button></div></div><div class="site-preview" id="site-preview" role="tabpanel" aria-labelledby="site-tab-landing"><div class="site-browser-bar" aria-hidden="true"><span class="browser-dots"><i></i><i></i><i></i></span><span class="browser-address">vista previa · ejemplo conceptual</span><span class="browser-mark">↗</span></div><div class="site-mockup" data-site-kind="landing" data-light="1"></div></div><div class="site-footer"><div class="site-footer-copy"><p class="site-note">Cada sitio se diseña a medida. Estos ejemplos muestran distintas formas de presentar tu proyecto.</p><p class="site-infrastructure"><span>Dominio y DNS</span> Cloudflare <i aria-hidden="true">·</i> <span>Hosting</span> GitHub Pages</p></div><nav class="site-social" aria-label="Redes y contacto"><a href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7M15 21v-3.3c0-1 .1-1.7-.5-2.3 3.3-.4 6.8-1.6 6.8-7.4a5.8 5.8 0 0 0-1.5-4A5.4 5.4 0 0 0 19.7 0S18.5-.4 15 2a13.5 13.5 0 0 0-7 0C4.5-.4 3.3 0 3.3 0a5.4 5.4 0 0 0-.1 4A5.8 5.8 0 0 0 1.7 8c0 5.8 3.5 7 6.8 7.4-.6.6-.6 1.2-.5 2.3V21"></path></svg></a><a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"></path><path d="M9 9.2c.3 2.3 2 4 4.3 4.6l1.2-1.1 2 .9c-.1 1.1-.9 1.8-2 1.8-3.5-.2-6.9-3.6-7-7.1 0-1.1.7-1.9 1.8-2l.9 2L9 9.2Z"></path></svg></a><a href="${EMAIL_URL}" aria-label="Correo electrónico" title="Correo"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></a></nav></div></div>`;
+  }
+
+  function renderWebsiteExample(example) {
+    const nav = `<header class="mock-nav"><span class="mock-brand">${example.brand}</span><span class="mock-links">${example.navigation}</span><span class="mock-menu" aria-hidden="true">☰</span></header>`;
+    if (example.kind === 'landing') return `${nav}<div class="mock-landing"><div class="mock-copy"><p class="mock-eyebrow">${example.eyebrow}</p><h2>${example.title}</h2><p>${example.description}</p><button type="button" tabindex="-1">${example.action}<span>↗</span></button><small>ESTRATEGIA · DISEÑO · DESARROLLO</small></div><div class="mock-art mock-art-landing" aria-hidden="true"><div class="art-orbit"></div><div class="art-sun"></div><span>01<br>—<br>24</span></div></div>`;
+    if (example.kind === 'corporate') return `${nav}<div class="mock-corporate"><p class="mock-eyebrow">${example.eyebrow}</p><h2>${example.title}</h2><div class="mock-corporate-bottom"><p>${example.description}</p><button type="button" tabindex="-1">${example.action}<span>↗</span></button><div class="mock-building" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div></div><small>ROSARIO, ARGENTINA <span>·</span> DISEÑO CON INTENCIÓN</small></div>`;
+    return `${nav}<div class="mock-shop"><div class="mock-shop-copy"><p class="mock-eyebrow">${example.eyebrow}</p><h2>${example.title}</h2><p>${example.description}</p><button type="button" tabindex="-1">${example.action}<span>→</span></button></div><div class="mock-products" aria-hidden="true"><div class="mock-product product-one"><i></i><span>Jarrón Arcilla</span><small>$ 28.000</small></div><div class="mock-product product-two"><i></i><span>Lámpara Alba</span><small>$ 42.000</small></div><div class="mock-product product-three"><i></i><span>Cuenco Río</span><small>$ 19.500</small></div></div></div>`;
+  }
+
+  function initializeSitesDemo() {
+    const mockup = content.querySelector('.site-mockup');
+    if (!mockup) return;
+    const example = websiteExamples[0];
+    mockup.innerHTML = renderWebsiteExample(example);
+    const panel = content.querySelector('#site-preview');
+    panel?.setAttribute('aria-labelledby', `site-tab-${example.id}`);
+  }
+
+  function selectWebsiteExample(id) {
+    const example = websiteExamples.find(item => item.id === id);
+    if (!example) return;
+    content.querySelectorAll('.site-type').forEach(tab => {
+      const selected = tab.dataset.siteType === id;
+      tab.classList.toggle('is-active', selected);
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+    });
+    const mockup = content.querySelector('.site-mockup');
+    const panel = content.querySelector('#site-preview');
+    if (!mockup || !panel) return;
+    mockup.classList.add('is-changing');
+    window.setTimeout(() => {
+      mockup.dataset.siteKind = example.kind;
+      mockup.dataset.light = String(websiteExamples.findIndex(item => item.id === id) + 1);
+      mockup.innerHTML = renderWebsiteExample(example);
+      panel.setAttribute('aria-labelledby', `site-tab-${example.id}`);
+      requestAnimationFrame(() => mockup.classList.remove('is-changing'));
+    }, reduceMotion ? 0 : 150);
+  }
+
+  function renderProjects() {
+    const rows = projects.map((project, index) => `<a class="project-row" href="${project.url}" target="_blank" rel="noopener noreferrer" data-project-index="${index}" style="--row-delay:${index * 75}ms"><span class="project-thumb"><img src="${project.image}" alt="${project.alt}" width="1200" height="750" decoding="async"></span><span class="project-copy"><span class="project-title"><span class="project-title-text">${project.title}</span><span class="project-arrow" aria-hidden="true">→</span></span><span class="project-description">${project.description}</span><span class="project-technologies">${project.technologies.join(' · ')}</span></span><span class="project-meta">${project.yearOrStatus}</span></a>`).join('');
+    return `<div class="projects-section"><p class="content-kicker">02 &nbsp; / &nbsp; Trabajo seleccionado</p><h1>Proyectos<span>.</span></h1><p class="content-lead">Algunas cosas hechas con intención.</p><div class="project-list" aria-label="Proyectos">${rows}</div></div>`;
+  }
+
+  function initializeProjectPreview() {
+    projectPreview.innerHTML = projects.map((project, index) => `<img class="project-preview-image${index === 0 ? ' is-active' : ''}" src="${project.image}" alt="" width="1200" height="750" decoding="async">`).join('');
+    projects.forEach(project => {
+      const preload = new Image();
+      preload.src = project.image;
+      if (preload.decode) preload.decode().catch(() => {});
+    });
+  }
+  initializeProjectPreview();
+
+  function activateProjectPreview(index) {
+    if (!Number.isInteger(index) || index < 0 || index >= projects.length || index === activePreviewIndex) return;
+    activePreviewIndex = index;
+    projectPreview.querySelectorAll('.project-preview-image').forEach((image, imageIndex) => {
+      image.classList.toggle('is-active', imageIndex === index);
+    });
+  }
+
+  function updateGreeting() {
+    const hour = new Date().getHours();
+    greeting.textContent = hour >= 5 && hour < 12 ? '¡Buen día!' : hour >= 12 && hour < 20 ? '¡Buenas tardes!' : '¡Buenas noches!';
+  }
+  updateGreeting();
+
+  for (let i = 0; i < count; i++) {
+    const y = 1 - (i / (count - 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
+    const theta = goldenAngle * i;
+    points.push({ x: Math.cos(theta) * r, y, z: Math.sin(theta) * r, seed: Math.random() * Math.PI * 2, sparkle: Math.random(), sparklePhase: Math.random(), size: .48 + Math.random() * .78 });
+  }
+
+  function resize() {
+    const rect = wrapper.getBoundingClientRect();
+    width = rect.width; height = rect.height;
+    if (!baseOrbWidth && width > 0) baseOrbWidth = width;
+    ensureCanvasCapacity(width);
+    canvas.style.width = '100%'; canvas.style.height = '100%';
+  }
+
+  function resizeSitesUniverse() {
+    const rect = stage.getBoundingClientRect();
+    sitesWidth = rect.width;
+    sitesHeight = rect.height;
+    sitesDpr = Math.min(window.devicePixelRatio || 1, 2);
+    sitesCanvas.width = Math.round(sitesWidth * sitesDpr);
+    sitesCanvas.height = Math.round(sitesHeight * sitesDpr);
+    sitesCtx.setTransform(sitesDpr, 0, 0, sitesDpr, 0, 0);
+  }
+
+  function drawSitesUniverse(dt) {
+    const active = stage.dataset.section === 'sites' && (stage.classList.contains('sites-entering') || stage.classList.contains('sites-landing') || stage.classList.contains('content-open'));
+    if (!active || !sitesWidth || !sitesHeight) return;
+    sitesCtx.clearRect(0, 0, sitesWidth, sitesHeight);
+    const orbColor = getComputedStyle(stage).getPropertyValue('--orb-front').trim() || '205, 205, 214';
+    for (const dot of sitesDots) {
+      if (!reduceMotion) {
+        dot.x = (dot.x + dot.speed * dt) % 1;
+        dot.y = (dot.y - dot.speed * .32 * dt + 1) % 1;
+      }
+      const x = dot.x * sitesWidth;
+      const y = dot.y * sitesHeight;
+      const alpha = dot.glint ? dot.alpha * .82 : dot.alpha * .48;
+      sitesCtx.beginPath();
+      sitesCtx.arc(x, y, dot.size, 0, Math.PI * 2);
+      sitesCtx.fillStyle = `rgba(${orbColor}, ${alpha})`;
+      sitesCtx.fill();
+    }
+  }
+
+  function ensureCanvasCapacity(requiredWidth) {
+    const nextDpr = Math.min(window.devicePixelRatio || 1, 2);
+    const nextCapacity = Math.max(canvasCapacityWidth, requiredWidth);
+    const nextPixels = Math.round(nextCapacity * nextDpr);
+    if (nextPixels === canvas.width && nextDpr === dpr) return;
+    dpr = nextDpr;
+    canvasCapacityWidth = nextCapacity;
+    canvas.width = nextPixels;
+    canvas.height = nextPixels;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function targetOrbWidth(state, section) {
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const mobile = vw <= 700;
+    if (state === 'home') return mobile ? Math.min(vw * .88, vh * .67) : Math.min(vh * .78, vw * .78, 940);
+    if (state === 'menu') return mobile ? (vw <= 390 ? vw * .56 : Math.min(vh * .58, vw * .63)) : Math.min(vh * .64, vw * .64, 760);
+    if (section === 'contact') return mobile ? Math.min(vw * 2.4, vh * 1.7, 1100) : Math.min(vw * 2.4, vh * 2.1, 5000);
+    if (mobile) return vw <= 390 ? vw * 1.45 : Math.min(vw * 1.38, vh * 1.1);
+    if (vw <= 1250) return Math.min(vh * 1.12, vw * 1.12, 1200);
+    return Math.min(vh * 1.38, vw * 1.38, 1600);
+  }
+
+  function draw(time) {
+    requestAnimationFrame(draw);
+    const dt = Math.min((time - (lastTime || time)) / 1000, .05); lastTime = time;
+    drawSitesUniverse(dt);
+    const isAbout = stage.dataset.section === 'about';
+    const isContact = stage.dataset.section === 'contact';
+    if (!reduceMotion) rotation += dt * (isAbout ? Math.PI * 2 / 120 : isContact ? .24 : .12);
+    const ease = 1 - Math.exp(-dt * 2.3);
+    pointer.x += (pointer.targetX - pointer.x) * ease;
+    pointer.y += (pointer.targetY - pointer.y) * ease;
+    pointer.hover += (pointer.targetHover - pointer.hover) * (1 - Math.exp(-dt * 1.8));
+    const renderScale = canvasCapacityWidth / Math.max(width, 1);
+    ctx.setTransform(dpr * renderScale, 0, 0, dpr * renderScale, 0, 0);
+    ctx.clearRect(0, 0, width, height);
+    const cx = width / 2, cy = height / 2;
+    const radius = Math.min(width, height) * .385;
+    const dotScale = baseOrbWidth ? width / baseOrbWidth : 1;
+    const cos = Math.cos(rotation), sin = Math.sin(rotation);
+    const tilt = -.17 + (canParallax && isAbout ? pointer.y * .015 : pointer.y * .09);
+    const ct = Math.cos(tilt), st = Math.sin(tilt);
+    const frontColor = getComputedStyle(stage).getPropertyValue('--orb-front').trim() || '205, 205, 214';
+    const backColor = getComputedStyle(stage).getPropertyValue('--orb-back').trim() || '145, 147, 158';
+    const frontRgb = frontColor.split(',').map(Number);
+    const backRgb = backColor.split(',').map(Number);
+    const projected = [];
+    const hoverSpread = pointer.hover * .045;
+    const hoverScale = 1 + pointer.hover * .045;
+    const heartbeat = reduceMotion ? .5 : stage.classList.contains('menu-open') ? .5 + .5 * Math.sin(time * Math.PI * 2 / 2.4) : .5 + .5 * Math.sin(time * Math.PI * 2 / 4.2);
+    const parallaxX = canParallax && isAbout ? pointer.x * 12 : 0;
+    const parallaxY = canParallax && isAbout ? pointer.y * 12 : 0;
+    const orbScale = isAbout ? 1.15 : 1;
+
+    for (const p of points) {
+      const x = p.x * cos - p.z * sin;
+      const z = p.x * sin + p.z * cos;
+      const y = p.y * ct - z * st;
+      const depth = p.y * st + z * ct;
+      const spread = 1 + hoverSpread * (.65 + (p.seed % 1) * .7);
+      const parallax = isAbout ? 0 : pointer.x * 4;
+      projected.push({ x: cx + x * radius * orbScale * hoverScale * spread + parallaxX + parallax, y: cy + y * radius * orbScale * hoverScale * spread + parallaxY, depth, size: p.size, seed: p.seed });
+    }
+    projected.sort((a, b) => a.depth - b.depth);
+    for (const p of projected) {
+      const front = (p.depth + 1) / 2;
+      const alpha = .12 + front * .8;
+      const size = p.size * (.55 + front * .72) * dotScale;
+      const pulse = reduceMotion ? 1 : .84 + .16 * Math.sin(time * .001 + p.seed);
+      const whiteBeat = reduceMotion ? 0 : stage.classList.contains('menu-open') ? .12 + heartbeat * .24 : heartbeat * .07;
+      ctx.beginPath(); ctx.arc(p.x, p.y, size * pulse * (1 + whiteBeat * .1), 0, Math.PI * 2);
+      const surfaceMix = Math.max(0, Math.min(1, (front + .12) / .78));
+      const whiteMix = Math.max(0, Math.min(.78, Math.max(0, (front - .68) * 1.65) + whiteBeat * .42));
+      const dotColor = backRgb.map((channel, index) => {
+        const surfaceChannel = channel + (frontRgb[index] - channel) * surfaceMix;
+        return Math.round(surfaceChannel + (255 - surfaceChannel) * whiteMix);
+      });
+      ctx.fillStyle = `rgba(${dotColor.join(',')}, ${Math.min(1, alpha * pulse + whiteBeat * .06)})`;
+      ctx.fill();
+      if (isContact && !reduceMotion && p.y > cy && front > .58 && p.sparkle < .045) {
+        const sparkleAge = (time / 1000 + p.sparklePhase * 16) % 16;
+        if (sparkleAge < 2.8) {
+          const sparkle = Math.pow(Math.sin(Math.PI * sparkleAge / 2.8), 1.4);
+          ctx.save();
+          ctx.globalAlpha = sparkle;
+          ctx.shadowColor = 'rgba(92, 171, 255, .95)';
+          ctx.shadowBlur = 7 * dotScale;
+          ctx.fillStyle = 'rgba(205, 232, 255, .98)';
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, size * (1 + sparkle * 1.2), 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+    }
+  }
+
+  function setState(state, section = 'home') {
+    stage.classList.remove('menu-open', 'content-open');
+    stage.dataset.section = section;
+    if (state === 'menu') stage.classList.add('menu-open');
+    if (state === 'content') stage.classList.add('content-open');
+    ensureCanvasCapacity(targetOrbWidth(state, section));
+    const inContent = state === 'content';
+    wrapper.setAttribute('aria-pressed', String(state !== 'home'));
+    wrapper.setAttribute('aria-label', state === 'home' ? 'Mostrar menú' : state === 'menu' ? 'Cerrar menú' : 'Volver al menú');
+    menu.setAttribute('aria-hidden', String(state !== 'menu'));
+    document.querySelector('.content').setAttribute('aria-hidden', String(!inContent));
+    if (section !== 'about') stage.querySelector('.hero > .about-status')?.remove();
+  }
+
+  function toggleMenu() {
+    if (stage.classList.contains('content-open')) {
+      setState('menu', stage.dataset.section);
+      return;
+    }
+    setState(stage.classList.contains('menu-open') ? 'home' : 'menu');
+  }
+
+  wrapper.addEventListener('click', toggleMenu);
+  wrapper.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
+  });
+  menu.addEventListener('click', e => {
+    const button = e.target.closest('[data-target]');
+    if (!button) return;
+    openSection(button.dataset.target);
+  });
+  content.addEventListener('click', e => {
+    const siteTab = e.target.closest('[data-site-type]');
+    if (siteTab) {
+      selectWebsiteExample(siteTab.dataset.siteType);
+      return;
+    }
+    const button = e.target.closest('[data-target]');
+    if (button) openSection(button.dataset.target);
+  });
+  content.addEventListener('keydown', e => {
+    const currentTab = e.target.closest('[data-site-type]');
+    if (!currentTab || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+    const tabs = [...content.querySelectorAll('[data-site-type]')];
+    let index = tabs.indexOf(currentTab);
+    if (e.key === 'ArrowRight') index = (index + 1) % tabs.length;
+    if (e.key === 'ArrowLeft') index = (index - 1 + tabs.length) % tabs.length;
+    if (e.key === 'Home') index = 0;
+    if (e.key === 'End') index = tabs.length - 1;
+    e.preventDefault();
+    tabs[index].focus();
+    selectWebsiteExample(tabs[index].dataset.siteType);
+  });
+  content.addEventListener('pointerover', e => {
+    if (stage.dataset.section !== 'projects') return;
+    const row = e.target.closest('.project-row');
+    if (row) {
+      activateProjectPreview(Number(row.dataset.projectIndex));
+      projectPreview.classList.add('is-visible');
+    }
+  });
+  content.addEventListener('pointerleave', () => {
+    if (stage.dataset.section === 'projects') {
+      activateProjectPreview(0);
+      projectPreview.classList.remove('is-visible');
+    }
+  });
+  content.addEventListener('focusin', e => {
+    if (stage.dataset.section !== 'projects') return;
+    const row = e.target.closest('.project-row');
+    if (row) {
+      activateProjectPreview(Number(row.dataset.projectIndex));
+      projectPreview.classList.add('is-visible');
+    }
+  });
+  content.addEventListener('focusout', e => {
+    if (stage.dataset.section === 'projects' && !content.contains(e.relatedTarget)) {
+      activateProjectPreview(0);
+      projectPreview.classList.remove('is-visible');
+    }
+  });
+
+  function openSection(section) {
+    stage.querySelector('.hero > .about-status')?.remove();
+    if (section === 'sites') {
+      if (stage.classList.contains('sites-entering')) return;
+      if (reduceMotion) {
+        content.innerHTML = sections.sites;
+        setState('content', 'sites');
+        initializeSitesDemo();
+        return;
+      }
+      stage.dataset.section = 'sites';
+      stage.classList.remove('menu-open');
+      stage.classList.add('sites-entering');
+      menu.setAttribute('aria-hidden', 'true');
+      const finishEntry = event => {
+        if (event.target !== wrapper || event.animationName !== 'sites-enter-orb') return;
+        wrapper.removeEventListener('animationend', finishEntry);
+        content.innerHTML = sections.sites;
+        initializeSitesDemo();
+        stage.classList.add('sites-landing');
+        stage.classList.remove('sites-entering');
+        setState('content', 'sites');
+        requestAnimationFrame(() => stage.classList.remove('sites-landing'));
+      };
+      wrapper.addEventListener('animationend', finishEntry);
+      return;
+    }
+    content.innerHTML = sections[section];
+    setState('content', section);
+    if (section === 'projects') {
+      activePreviewIndex = -1;
+      activateProjectPreview(0);
+      projectPreview.classList.remove('is-visible');
+    }
+    syncAboutStatus();
+  }
+  function syncAboutStatus() {
+    if (stage.dataset.section !== 'about') return;
+    const aboutSection = content.querySelector('.about-section');
+    const status = content.querySelector('.about-status') || stage.querySelector('.hero > .about-status');
+    if (!aboutSection || !status) return;
+    if (window.innerWidth > 700) stage.querySelector('.hero').append(status);
+    else aboutSection.append(status);
+  }
+  backButton.addEventListener('click', () => setState('menu', stage.dataset.section));
+
+  wrapper.addEventListener('transitionend', e => {
+    if (e.target === wrapper && e.propertyName === 'width') resize();
+  });
+
+  wrapper.addEventListener('pointermove', e => {
+    const rect = wrapper.getBoundingClientRect();
+    if (!canParallax) return;
+    pointer.targetX = Math.max(-1, Math.min(1, (e.clientX - rect.left - rect.width / 2) / (rect.width / 2)));
+    pointer.targetY = Math.max(-1, Math.min(1, (e.clientY - rect.top - rect.height / 2) / (rect.height / 2)));
+    pointer.targetHover = 1;
+  });
+  wrapper.addEventListener('pointerleave', () => { pointer.targetX = 0; pointer.targetY = 0; pointer.targetHover = 0; });
+  window.addEventListener('resize', () => { resize(); resizeSitesUniverse(); syncAboutStatus(); }, { passive: true });
+  resize();
+  resizeSitesUniverse();
+  const orbResizeObserver = new ResizeObserver(entries => {
+    const rect = entries[0].contentRect;
+    width = rect.width;
+    height = rect.height;
+    if (!baseOrbWidth && width > 0) baseOrbWidth = width;
+    ensureCanvasCapacity(width);
+  });
+  orbResizeObserver.observe(wrapper);
+  requestAnimationFrame(draw);
+})();
