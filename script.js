@@ -31,6 +31,7 @@
     { title: 'Portfolio interactivo', description: 'Una presentación digital con movimiento sutil.', technologies: ['Portfolio', 'Interacción'], yearOrStatus: 'Próximamente', image: 'assets/projects/portfolio-interactivo.webp', url: 'https://example.com/portfolio-interactivo', alt: 'Vista conceptual de un portfolio interactivo, proyecto próximamente.' }
   ];
   let activePreviewIndex = 0;
+  let expandedPreviewTrigger = null;
 
   const websiteExamples = [
     { id: 'landing', label: 'Landing page', icon: 'spark', eyebrow: 'UNA SOLA PÁGINA · UNA IDEA CLARA', brand: 'AURA', navigation: 'Estudio  ·  Servicios  ·  Contacto', title: 'Tu próxima idea merece espacio.', description: 'Una página directa, pensada para presentar un producto, servicio o lanzamiento.', action: 'Conocer el proyecto', kind: 'landing' },
@@ -56,14 +57,45 @@
 
   function renderSites() {
     const tabs = websiteExamples.map((example, index) => `<button class="site-type${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="site-tab-${example.id}" aria-selected="${index === 0}" aria-controls="site-preview" tabindex="${index === 0 ? '0' : '-1'}" data-site-type="${example.id}"><span class="site-icon" aria-hidden="true">${iconMarkup(example.icon)}</span>${example.label}</button>`).join('');
-    return `<div class="sites-section"><div class="sites-topbar"><div class="site-tabs" role="tablist" aria-label="Tipos de sitio web">${tabs}</div><div class="sites-heading"><p class="content-kicker">00 &nbsp; / &nbsp; SITIOS WEB</p><h1>Ideas digitales<span>.</span></h1><button class="sites-contact" type="button" data-target="contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg><span>Hablemos</span><i>↗</i></button></div></div><div class="site-preview" id="site-preview" role="tabpanel" aria-labelledby="site-tab-landing"><div class="site-browser-bar" aria-hidden="true"><span class="browser-dots"><i></i><i></i><i></i></span><span class="browser-address">vista previa · ejemplo conceptual</span><span class="browser-mark">↗</span></div><div class="site-mockup" data-site-kind="landing" data-light="1"></div></div><div class="site-footer"><div class="site-footer-copy"><p class="site-note">Cada sitio se diseña a medida. Estos ejemplos muestran distintas formas de presentar tu proyecto.</p><p class="site-infrastructure"><span>Dominio y DNS</span> Cloudflare <i aria-hidden="true">·</i> <span>Hosting</span> GitHub Pages</p></div><nav class="site-social" aria-label="Redes y contacto"><a href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7M15 21v-3.3c0-1 .1-1.7-.5-2.3 3.3-.4 6.8-1.6 6.8-7.4a5.8 5.8 0 0 0-1.5-4A5.4 5.4 0 0 0 19.7 0S18.5-.4 15 2a13.5 13.5 0 0 0-7 0C4.5-.4 3.3 0 3.3 0a5.4 5.4 0 0 0-.1 4A5.8 5.8 0 0 0 1.7 8c0 5.8 3.5 7 6.8 7.4-.6.6-.6 1.2-.5 2.3V21"></path></svg></a><a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"></path><path d="M9 9.2c.3 2.3 2 4 4.3 4.6l1.2-1.1 2 .9c-.1 1.1-.9 1.8-2 1.8-3.5-.2-6.9-3.6-7-7.1 0-1.1.7-1.9 1.8-2l.9 2L9 9.2Z"></path></svg></a><a href="${EMAIL_URL}" aria-label="Correo electrónico" title="Correo"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></a></nav></div></div>`;
+    return `<div class="sites-section">
+      <div class="sites-topbar">
+        <div class="site-tabs" role="tablist" aria-label="Tipos de sitio web">${tabs}</div>
+        <div class="sites-heading"><p class="content-kicker">00 &nbsp; / &nbsp; SITIOS WEB</p><h1>Ideas digitales<span>.</span></h1><button class="sites-contact" type="button" data-target="contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg><span>Hablemos</span><i>↗</i></button></div>
+      </div>
+      <div class="site-preview" id="site-preview" role="tabpanel" aria-labelledby="site-tab-landing">
+        <div class="site-browser-bar"><span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="browser-address">vista previa · ejemplo conceptual</span><button class="site-expand" type="button" aria-label="Expandir demostración" aria-expanded="false" aria-controls="site-preview" title="Ver en pantalla completa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4M16 4h4v4M20 16v4h-4M4 16v4h4M4 8l6-6M20 8l-6-6M20 16l-6 6M4 16l6 6"></path></svg><span>Expandir</span></button></div>
+        <button class="site-collapse" type="button" aria-label="Volver a la vista previa" title="Desmaximizar ventana"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v5H3M16 3v5h5M3 16h5v5M21 16h-5v5"></path></svg><span>Volver a la vista previa</span></button>
+        <div class="site-mockup" data-site-kind="landing" data-light="1"></div>
+      </div>
+      <div class="site-footer"><div class="site-footer-copy"><p class="site-note">Cada sitio se diseña a medida. Estos ejemplos muestran distintas formas de presentar tu proyecto.</p><p class="site-infrastructure"><span>Dominio y DNS</span> Cloudflare <i aria-hidden="true">·</i> <span>Hosting</span> GitHub Pages</p></div><nav class="site-social" aria-label="Redes y contacto"><a href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7M15 21v-3.3c0-1 .1-1.7-.5-2.3 3.3-.4 6.8-1.6 6.8-7.4a5.8 5.8 0 0 0-1.5-4A5.4 5.4 0 0 0 19.7 0S18.5-.4 15 2a13.5 13.5 0 0 0-7 0C4.5-.4 3.3 0 3.3 0a5.4 5.4 0 0 0-.1 4A5.8 5.8 0 0 0 1.7 8c0 5.8 3.5 7 6.8 7.4-.6.6-.6 1.2-.5 2.3V21"></path></svg></a><a href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"></path><path d="M9 9.2c.3 2.3 2 4 4.3 4.6l1.2-1.1 2 .9c-.1 1.1-.9 1.8-2 1.8-3.5-.2-6.9-3.6-7-7.1 0-1.1.7-1.9 1.8-2l.9 2L9 9.2Z"></path></svg></a><a href="${EMAIL_URL}" aria-label="Correo electrónico" title="Correo"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></a></nav></div>
+    </div>`;
   }
 
   function renderWebsiteExample(example) {
-    const nav = `<header class="mock-nav"><span class="mock-brand">${example.brand}</span><span class="mock-links">${example.navigation}</span><span class="mock-menu" aria-hidden="true">☰</span></header>`;
-    if (example.kind === 'landing') return `${nav}<div class="mock-landing"><div class="mock-copy"><p class="mock-eyebrow">${example.eyebrow}</p><h2>${example.title}</h2><p>${example.description}</p><button type="button" tabindex="-1">${example.action}<span>↗</span></button><small>ESTRATEGIA · DISEÑO · DESARROLLO</small></div><div class="mock-art mock-art-landing" aria-hidden="true"><div class="art-orbit"></div><div class="art-sun"></div><span>01<br>—<br>24</span></div></div>`;
-    if (example.kind === 'corporate') return `${nav}<div class="mock-corporate"><p class="mock-eyebrow">${example.eyebrow}</p><h2>${example.title}</h2><div class="mock-corporate-bottom"><p>${example.description}</p><button type="button" tabindex="-1">${example.action}<span>↗</span></button><div class="mock-building" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div></div><small>ROSARIO, ARGENTINA <span>·</span> DISEÑO CON INTENCIÓN</small></div>`;
-    return `${nav}<div class="mock-shop"><div class="mock-shop-copy"><p class="mock-eyebrow">${example.eyebrow}</p><h2>${example.title}</h2><p>${example.description}</p><button type="button" tabindex="-1">${example.action}<span>→</span></button></div><div class="mock-products" aria-hidden="true"><div class="mock-product product-one"><i></i><span>Jarrón Arcilla</span><small>$ 28.000</small></div><div class="mock-product product-two"><i></i><span>Lámpara Alba</span><small>$ 42.000</small></div><div class="mock-product product-three"><i></i><span>Cuenco Río</span><small>$ 19.500</small></div></div></div>`;
+    const nav = `<header class="mock-nav"><span class="mock-brand">${example.brand}</span><span class="mock-links">${example.navigation}</span><span class="mock-menu" aria-hidden="true">☰</span><span class="mock-nav-action">Empezar <b>↗</b></span></header>`;
+    const footer = `<footer class="demo-footer"><span class="mock-brand">${example.brand}</span><span>Diseñado con intención · Rosario, Argentina</span><span>© 2026</span></footer>`;
+    const button = label => `<button class="demo-button" type="button" tabindex="-1" aria-disabled="true">${label}<span aria-hidden="true">↗</span></button>`;
+
+    if (example.kind === 'landing') return `<main class="demo-page demo-landing">${nav}
+      <section class="mock-landing demo-hero"><div class="demo-wrap demo-hero-grid"><div class="mock-copy"><p class="mock-eyebrow">${example.eyebrow}</p><h1>${example.title}</h1><p>${example.description}</p><div class="demo-actions">${button(example.action)}<span class="demo-caption">Una experiencia para descubrir sin apuro.</span></div><div class="demo-proof"><span>01 — Una idea</span><span>02 — Un nuevo comienzo</span></div></div><div class="mock-art mock-art-landing" aria-hidden="true"><div class="art-orbit"></div><div class="art-sun"></div><div class="art-object"></div><span>01<br>—<br>24</span><small>EL FUTURO<br>SE SIENTE</small></div></div><div class="demo-scroll-hint">DESLIZÁ PARA DESCUBRIR <span>↓</span></div></section>
+      <section class="demo-intro demo-wrap"><p class="mock-eyebrow">UNA PÁGINA. UNA HISTORIA.</p><h2>Todo empieza con una buena primera impresión.</h2><p class="demo-section-copy">Una landing page reúne lo esencial en un recorrido claro: presenta una propuesta, despierta interés y acompaña a cada persona hacia el siguiente paso.</p><div class="demo-feature-grid"><article><span>01</span><h3>Mensaje claro</h3><p>Una propuesta concreta que se entiende desde el primer vistazo.</p></article><article><span>02</span><h3>Diseño con intención</h3><p>Jerarquía visual para destacar lo que hace única a tu idea.</p></article><article><span>03</span><h3>Acción sencilla</h3><p>Un camino directo para conocer, consultar o empezar.</p></article></div></section>
+      <section class="demo-story"><div class="demo-wrap demo-story-grid"><div class="demo-story-art" aria-hidden="true"><div class="story-sun"></div><div class="story-card"><span>COLECCIÓN 01</span><b>Un momento<br>para vos.</b><i>✳</i></div></div><div><p class="mock-eyebrow">HECHA PARA TU LANZAMIENTO</p><h2>Una experiencia que deja huella.</h2><p class="demo-section-copy">Desde una nueva marca hasta un servicio especial, cada detalle de la página acompaña la personalidad de tu proyecto. Contenido breve, visuales expresivos y una invitación a dar el próximo paso.</p>${button('Contanos tu idea')}</div></div></section>
+      <section class="demo-quote demo-wrap"><span class="demo-quote-mark">“</span><p>Una idea merece un espacio propio para crecer.</p><small>UNA LANDING PAGE PENSADA PARA CONECTAR</small></section>
+      <section class="demo-cta"><div class="demo-wrap demo-cta-inner"><p class="mock-eyebrow">EL PRIMER PASO PUEDE SER SIMPLE</p><h2>Hagamos lugar<br>a tu próxima idea.</h2>${button('Empezar una conversación')}</div></section>${footer}</main>`;
+
+    if (example.kind === 'corporate') return `<main class="demo-page demo-corporate">${nav}
+      <section class="mock-corporate demo-corp-hero"><div class="demo-wrap demo-corp-hero-inner"><p class="mock-eyebrow">${example.eyebrow}</p><h1>${example.title}</h1><div class="demo-corp-intro"><p>${example.description}</p>${button('Conocer el estudio')}</div><div class="mock-building" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b><span>NORTE<br>ESTUDIO</span></div><small class="demo-location">ROSARIO, ARGENTINA <span>·</span> DISEÑO CON INTENCIÓN</small></div></section>
+      <section class="demo-corp-about"><div class="demo-wrap demo-corp-about-grid"><p class="mock-eyebrow">01 / EL ESTUDIO</p><h2>Ideas sólidas.<br>Espacios que inspiran.</h2><p class="demo-section-copy">Somos un equipo independiente que conecta arquitectura, paisaje y vida cotidiana. Trabajamos de forma cercana, desde la primera conversación hasta el último detalle.</p><div class="demo-corp-stats"><div><b>12</b><span>AÑOS DE OFICIO</span></div><div><b>38</b><span>PROYECTOS REALIZADOS</span></div><div><b>04</b><span>CIUDADES</span></div></div></div></section>
+      <section class="demo-corp-services"><div class="demo-wrap"><div class="demo-corp-section-heading"><p class="mock-eyebrow">02 / QUÉ HACEMOS</p><h2>Un proceso completo,<br>con una mirada común.</h2></div><div class="demo-service-list"><article><span>01</span><div><h3>Arquitectura</h3><p>Proyectos residenciales y comerciales pensados para durar.</p></div><b>↗</b></article><article><span>02</span><div><h3>Interiorismo</h3><p>Materiales, luz y proporciones en equilibrio.</p></div><b>↗</b></article><article><span>03</span><div><h3>Dirección de obra</h3><p>Seguimiento cercano para que cada idea llegue a buen puerto.</p></div><b>↗</b></article></div></div></section>
+      <section class="demo-corp-project"><div class="demo-wrap demo-project-grid"><div class="demo-project-image" aria-hidden="true"><div class="project-building"><i></i><i></i><b></b></div><span>CASA ENTRE ÁRBOLES · 2025</span></div><div><p class="mock-eyebrow">03 / PROYECTO DESTACADO</p><h2>Una casa abierta<br>a la luz del norte.</h2><p class="demo-section-copy">Materiales honestos y una relación directa con el paisaje crean un refugio simple para vivir mejor.</p>${button('Ver el proyecto')}</div></div></section>
+      <section class="demo-corp-contact"><div class="demo-wrap"><p class="mock-eyebrow">04 / HABLEMOS</p><h2>¿Imaginamos<br>algo juntos?</h2><p>Nos gusta escuchar ideas nuevas.</p>${button('Escribir al estudio')}</div></section>${footer}</main>`;
+
+    return `<main class="demo-page demo-commerce">${nav}
+      <section class="mock-shop demo-shop-hero"><div class="demo-wrap demo-shop-grid"><div class="mock-shop-copy"><p class="mock-eyebrow">${example.eyebrow}</p><h1>${example.title}</h1><p>${example.description}</p>${button('Explorar objetos')}<small>HECHO EN ARGENTINA · ENVÍOS A TODO EL PAÍS</small></div><div class="shop-hero-art" aria-hidden="true"><div class="shop-sun"></div><div class="shop-vase vase-large"></div><div class="shop-vase vase-small"></div><span>OBJETOS<br>PARA HABITAR</span></div></div><div class="demo-wrap demo-marquee">PIEZAS ÚNICAS <i>✳</i> DISEÑO LOCAL <i>✳</i> MATERIALES NOBLES <i>✳</i> HECHO CON CALMA</div></section>
+      <section class="demo-shop-categories demo-wrap"><div class="demo-shop-heading"><div><p class="mock-eyebrow">DESCUBRÍ CASA BOSQUE</p><h2>Objetos para cada rincón.</h2></div><span>VER TODAS LAS CATEGORÍAS →</span></div><div class="demo-category-grid"><article class="category category-ceramics"><div aria-hidden="true"><i></i><b></b></div><span>CERÁMICA</span></article><article class="category category-light"><div aria-hidden="true"><i></i><b></b></div><span>ILUMINACIÓN</span></article><article class="category category-textile"><div aria-hidden="true"><i></i><b></b></div><span>TEXTILES</span></article></div></section>
+      <section class="demo-shop-products"><div class="demo-wrap"><div class="demo-shop-heading"><div><p class="mock-eyebrow">SELECCIÓN DE LA CASA</p><h2>Favoritos de temporada.</h2></div><span>VER COLECCIÓN →</span></div><div class="mock-products demo-product-grid" aria-hidden="true"><article class="mock-product product-one"><i></i><span>Jarrón Arcilla</span><small>$ 28.000</small></article><article class="mock-product product-two"><i></i><span>Lámpara Alba</span><small>$ 42.000</small></article><article class="mock-product product-three"><i></i><span>Cuenco Río</span><small>$ 19.500</small></article><article class="mock-product product-four"><i></i><span>Textil Siesta</span><small>$ 34.000</small></article></div></div></section>
+      <section class="demo-shop-editorial"><div class="demo-wrap demo-editorial-grid"><div class="demo-editorial-art" aria-hidden="true"><div class="editorial-object"></div><span>HECHO A MANO<br>EN PEQUEÑAS SERIES</span></div><div><p class="mock-eyebrow">EL VALOR DE LO HECHO DESPACIO</p><h2>Diseño que se queda.</h2><p class="demo-section-copy">Elegimos piezas que encuentran su lugar en tu casa y te acompañan por mucho tiempo. Producción local, materiales nobles y cuidado en cada terminación.</p>${button('Conocer nuestra historia')}</div></div></section>
+      <section class="demo-shop-newsletter"><div class="demo-wrap"><p class="mock-eyebrow">UNA CARTA DESDE CASA</p><h2>Novedades, ideas<br>y pequeños hallazgos.</h2><p>Recibí novedades de la tienda y una nota de inspiración de vez en cuando.</p><div class="demo-newsletter-field"><span>Tu correo electrónico</span><b>SUMARME →</b></div></div></section>${footer}</main>`;
   }
 
   function initializeSitesDemo() {
@@ -95,6 +127,35 @@
       panel.setAttribute('aria-labelledby', `site-tab-${example.id}`);
       requestAnimationFrame(() => mockup.classList.remove('is-changing'));
     }, reduceMotion ? 0 : 150);
+  }
+
+  function expandWebsiteExample(trigger) {
+    const panel = content.querySelector('.site-preview');
+    if (!panel || panel.classList.contains('is-expanded')) return;
+    expandedPreviewTrigger = trigger;
+    const activeExample = websiteExamples.find(item => item.id === content.querySelector('.site-type.is-active')?.dataset.siteType);
+    panel.classList.add('is-expanded');
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-modal', 'true');
+    panel.setAttribute('aria-label', `Demostración a pantalla completa: ${activeExample?.label || 'sitio web'}`);
+    panel.scrollTop = 0;
+    trigger.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('has-expanded-site');
+    content.querySelector('.site-collapse')?.focus();
+  }
+
+  function collapseWebsiteExample() {
+    const panel = content.querySelector('.site-preview.is-expanded');
+    if (!panel) return;
+    panel.classList.remove('is-expanded');
+    panel.setAttribute('role', 'tabpanel');
+    panel.removeAttribute('aria-modal');
+    panel.removeAttribute('aria-label');
+    document.body.classList.remove('has-expanded-site');
+    const trigger = expandedPreviewTrigger;
+    expandedPreviewTrigger = null;
+    trigger?.setAttribute('aria-expanded', 'false');
+    trigger?.focus();
   }
 
   function renderProjects() {
@@ -301,6 +362,15 @@
     openSection(button.dataset.target);
   });
   content.addEventListener('click', e => {
+    const expandButton = e.target.closest('.site-expand');
+    if (expandButton) {
+      expandWebsiteExample(expandButton);
+      return;
+    }
+    if (e.target.closest('.site-collapse')) {
+      collapseWebsiteExample();
+      return;
+    }
     const siteTab = e.target.closest('[data-site-type]');
     if (siteTab) {
       selectWebsiteExample(siteTab.dataset.siteType);
@@ -308,6 +378,18 @@
     }
     const button = e.target.closest('[data-target]');
     if (button) openSection(button.dataset.target);
+  });
+  window.addEventListener('keydown', e => {
+    const panel = content.querySelector('.site-preview.is-expanded');
+    if (!panel) return;
+    if (e.key === 'Escape') {
+      collapseWebsiteExample();
+      return;
+    }
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      panel.querySelector('.site-collapse')?.focus();
+    }
   });
   content.addEventListener('keydown', e => {
     const currentTab = e.target.closest('[data-site-type]');
