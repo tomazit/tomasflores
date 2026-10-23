@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://tomasflores.dev/sitemap.xml

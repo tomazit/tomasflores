@@ -10,6 +10,7 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://tomasflores.dev/">
+  <link rel="sitemap" type="application/xml" href="https://tomasflores.dev/sitemap.xml">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_AR">
   <meta property="og:url" content="https://tomasflores.dev/">
@@ -36,32 +37,46 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Tomás Daniel Flores",
-    "givenName": "Tomás",
-    "additionalName": "Daniel",
-    "familyName": "Flores",
-    "jobTitle": "Desarrollador web",
-    "description": "Estudiante de Ingeniería en Sistemas y desarrollador web. Diseño y desarrollo sitios web a medida desde Rosario, Santa Fe, Argentina.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Rosario",
-      "addressRegion": "Santa Fe",
-      "addressCountry": "AR"
-    },
-    "email": "rainbow85612@gmail.com",
-    "sameAs": [
-      "https://github.com/tomazit"
-    ],
-    "knowsAbout": [
-      "Desarrollo web",
-      "Diseño web",
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Landing pages",
-      "Sitios corporativos",
-      "Comercio electrónico"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://tomasflores.dev/#website",
+        "url": "https://tomasflores.dev/",
+        "name": "Tomás Daniel Flores — Desarrollo web",
+        "inLanguage": "es-AR",
+        "publisher": { "@id": "https://tomasflores.dev/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://tomasflores.dev/#person",
+        "url": "https://tomasflores.dev/",
+        "mainEntityOfPage": { "@id": "https://tomasflores.dev/#website" },
+        "name": "Tomás Daniel Flores",
+        "givenName": "Tomás",
+        "additionalName": "Daniel",
+        "familyName": "Flores",
+        "jobTitle": "Desarrollador web",
+        "description": "Estudiante en la Universidad Tecnológica Nacional y desarrollador web. Diseño sitios web a medida con foco en claridad, rendimiento y diseño, desde Rosario, Santa Fe, Argentina.",
+        "image": "https://tomasflores.dev/assets/social-preview.png",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Rosario",
+          "addressRegion": "Santa Fe",
+          "addressCountry": "AR"
+        },
+        "email": "rainbow85612@gmail.com",
+        "sameAs": ["https://github.com/tomazit"],
+        "knowsAbout": [
+          "Desarrollo web",
+          "Diseño web",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Landing pages",
+          "Sitios corporativos",
+          "Comercio electrónico"
+        ]
+      }
     ]
   }
   </script>
