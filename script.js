@@ -15,6 +15,53 @@
   const GITHUB_URL = 'https://github.com/tomazit';
   const EMAIL_URL = 'https://mail.google.com/mail/?view=cm&fs=1&to=rainbow85612@gmail.com&su=Consulta%20por%20un%20sitio%20web&body=Hola%20Tom%C3%A1s%2C%20vi%20tu%20portfolio%20y%20me%20gustar%C3%ADa%20consultarte%20por%20un%20sitio%20web.';
   const WHATSAPP_URL = 'https://wa.me/5493413690901?text=Hola%20Tom%C3%A1s%2C%20vi%20tu%20portfolio%20y%20me%20gustar%C3%ADa%20consultarte%20por%20un%20sitio%20web.';
+  const languageStorageKey = 'tomas-portfolio-language';
+  const preferredLocale = navigator.languages?.[0] || navigator.language || 'es';
+  const localeRegion = preferredLocale.match(/-(?:([a-z]{2})|(\d{3}))$/i)?.[1]?.toUpperCase() || preferredLocale.match(/-(\d{3})$/)?.[1];
+  const spanishRegions = new Set(['AR', 'BO', 'CL', 'CO', 'CR', 'CU', 'DO', 'EC', 'ES', 'GQ', 'GT', 'HN', 'MX', 'NI', 'PA', 'PE', 'PR', 'PY', 'SV', 'UY', 'VE', '419']);
+  let language = localeRegion ? (spanishRegions.has(localeRegion) ? 'es' : 'en') : (/^es(?:-|$)/i.test(preferredLocale) ? 'es' : 'en');
+  try {
+    const savedLanguage = localStorage.getItem(languageStorageKey);
+    if (savedLanguage === 'es' || savedLanguage === 'en') language = savedLanguage;
+  } catch {}
+  const englishText = [
+    ['¿Qué madrugador, no? Buenos días.', 'An early bird, huh? Good morning.'], ['Buenos días.', 'Good morning.'],
+    ['Buenas tardes.', 'Good afternoon.'], ['Buenas noches.', 'Good evening.'],
+    ['Es muy tarde para seguir despierto. Buenas noches.', 'It’s very late to still be awake. Good night.'],
+    ['En serio, andá a dormir. Buenas noches.', 'Seriously, go to sleep. Good night.'],
+    ['A esta altura no sé si decirte buenas noches o buenos días.', 'At this point, I’m not sure whether to say good night or good morning.'],
+    ['SITIOS WEB', 'WEBSITES'], ['Sitios web', 'Websites'], ['Sobre mi', 'About me'], ['SOBRE MÍ', 'ABOUT ME'],
+    ['Ejemplos', 'Examples'], ['Trabajo en proceso', 'Work in progress'], ['Contacto', 'Contact'], ['VOLVER AL MENÚ', 'BACK TO MENU'],
+    ['Desarrollador web.', 'Web developer.'], ['Hablemos', 'Let’s talk'], ['Hablemos<span>.</span>', 'Let’s talk<span>.</span>'], ['Hola, soy<br>Tomás.', 'Hi, I’m<br>Tomás.'], ['Estudio  ·  Servicios  ·  Contacto', 'Studio  ·  Services  ·  Contact'], ['Estudio  ·  Servicios  ·  Proyectos', 'Studio  ·  Services  ·  Projects'], ['Objetos  ·  Colecciones  ·  Bolsa (0)', 'Objects  ·  Collections  ·  Bag (0)'],
+    ['¿Tenés una idea en mente?', 'Have an idea in mind?'], ['Contame qué querés crear. Estoy listo para darle forma.', 'Tell me what you’d like to create. I’m ready to help shape it.'],
+    ['VER EJEMPLOS', 'VIEW EXAMPLES'], ['Correo', 'Email'], ['Disponible para proyectos', 'Available for projects'],
+    ['Desarrollo sitios web a medida: claros, rápidos y bien cuidados.', 'I build custom websites that are clear, fast, and thoughtfully made.'],
+    ['Estudiante en la Universidad Tecnológica Nacional y desarrollador web. Empecé a aprender por mi cuenta en 2022 con HTML, CSS y JavaScript, y desde entonces no paré de sumar herramientas. Trabajo con distintos lenguajes, frameworks y modelos para encontrar la solución adecuada para cada proyecto. Hoy armo sitios a medida, cuidando el diseño y los detalles.', 'I study at the National Technological University and work as a web developer. I started learning on my own in 2022 with HTML, CSS, and JavaScript, and have kept adding tools ever since. I work with different languages, frameworks, and models to find the right solution for each project. Today, I build custom websites with care for design and detail.'],
+    ['Ejemplos seleccionados', 'Selected examples'], ['Algunas cosas hechas con intención.', 'A few things made with intention.'], ['Ejemplos de sitios web', 'Website examples'], ['Tipos de sitio web', 'Website types'], ['Estado y ubicación', 'Status and location'], ['Mapa de Argentina con Santa Fe resaltada', 'Map of Argentina with Santa Fe highlighted'],
+    ['Tienda de ropa', 'Clothing store'], ['Una experiencia de compra simple y cuidada.', 'A simple, thoughtful shopping experience.'], ['Vista conceptual de una tienda de ropa, proyecto próximamente.', 'Concept preview of a clothing store, coming soon.'], ['Próximamente', 'Coming soon'],
+    ['Estudio creativo', 'Creative studio'], ['Un sitio visual para un estudio independiente.', 'A visual website for an independent studio.'], ['Vista conceptual de un sitio para un estudio creativo, proyecto próximamente.', 'Concept preview of a creative studio website, coming soon.'], ['Identidad', 'Brand identity'], ['Desarrollo web', 'Web development'],
+    ['Panel de métricas', 'Metrics dashboard'], ['Datos importantes, claros de un vistazo.', 'Important data, clear at a glance.'], ['Vista conceptual de un panel de métricas, proyecto próximamente.', 'Concept preview of a metrics dashboard, coming soon.'], ['Panel de datos', 'Data dashboard'], ['Visualización', 'Data visualization'], ['En curso', 'In progress'],
+    ['Portfolio interactivo', 'Interactive portfolio'], ['Una presentación digital con movimiento sutil.', 'A digital showcase with subtle motion.'], ['Vista conceptual de un portfolio interactivo, proyecto próximamente.', 'Concept preview of an interactive portfolio, coming soon.'], ['Interacción', 'Interaction'], ['Diseño web', 'Web design'], ['E-commerce', 'E-commerce'],
+    ['Landing page', 'Landing page'], ['Sitio corporativo', 'Corporate website'], ['Una página. Un objetivo claro.', 'One page. One clear goal.'], ['Una página enfocada en presentar una propuesta y llevar a una acción concreta: consultar, reservar o comprar.', 'A focused page that presents an offer and guides visitors toward one clear action: inquire, book, or buy.'],
+    ['Lanzamientos, campañas, servicios puntuales o una nueva marca que necesita darse a conocer.', 'Launches, campaigns, focused services, or a new brand building awareness.'], ['Presentación, beneficios, prueba social y un llamado a la acción directo.', 'An introduction, benefits, social proof, and a clear call to action.'], ['Baja', 'Low'], ['Menos páginas y un recorrido simple. Puede crecer con integraciones o contenido especial.', 'Fewer pages and a simple journey. It can grow with integrations or custom content.'],
+    ['Toda tu marca, bien presentada.', 'Your brand, presented with clarity.'], ['Un sitio con varias secciones para explicar quién sos, qué ofrecés y por qué elegirte, con una presencia sólida y profesional.', 'A multi-section website that explains who you are, what you offer, and why people should choose you—with a confident, professional presence.'], ['Empresas, profesionales, estudios y organizaciones con varios servicios o proyectos para mostrar.', 'Businesses, professionals, studios, and organizations with multiple services or projects to showcase.'], ['Inicio, servicios, equipo o historia, trabajos destacados y formas de contacto.', 'Home, services, team or story, featured work, and ways to get in touch.'], ['Media', 'Medium'], ['Requiere organizar varias secciones. Idiomas, formularios e integraciones suman alcance.', 'Several sections need planning. Languages, forms, and integrations add scope.'],
+    ['Tu catálogo, listo para vender.', 'Your catalog, ready to sell.'], ['Una tienda online que organiza tus productos y acompaña a cada cliente desde el descubrimiento hasta la compra.', 'An online store that organizes your products and guides customers from discovery to checkout.'], ['Marcas y comercios que quieren vender productos por internet y gestionar pedidos.', 'Brands and retailers looking to sell products online and manage orders.'], ['Catálogo, fichas de producto, carrito y conexión con pagos y envíos según el proyecto.', 'Catalog, product pages, cart, and payment and shipping integrations tailored to the project.'], ['Alta', 'High'], ['Productos, pagos, logística y gestión requieren más configuración e integración.', 'Products, payments, logistics, and order management require more setup and integration.'],
+    ['GUÍA PARA ELEGIR', 'A GUIDE TO CHOOSING'], ['IDEAL PARA', 'IDEAL FOR'], ['SUELE INCLUIR', 'USUALLY INCLUDES'], ['COMPLEJIDAD', 'COMPLEXITY'], ['Complejidad orientativa:', 'Estimated complexity:'], ['nivel', 'level'], ['de 3', 'out of 3'],
+    ['Expandir demostración', 'Expand demo'], ['Ver en pantalla completa', 'View full screen'], ['Expandir', 'Expand'], ['Volver a la vista previa', 'Back to preview'], ['Desmaximizar ventana', 'Exit full screen'], ['Ver más de la demostración', 'See more of the demo'], ['Ver más', 'See more'],
+    ['Cada sitio se diseña a medida. Estos ejemplos muestran distintas formas de presentar tu proyecto.', 'Every website is custom designed. These examples show different ways to present your project.'], ['Dominio y DNS', 'Domain & DNS'], ['Hosting', 'Hosting'], ['Redes y contacto', 'Social & contact'], ['Correo electrónico', 'Email'], ['Demostración a pantalla completa:', 'Full-screen demo:'], ['sitio web', 'website'],
+    ['Empezar', 'Get started'], ['Diseñado con intención · Rosario, Argentina', 'Thoughtfully designed · Rosario, Argentina'], ['UNA SOLA PÁGINA · UNA IDEA CLARA', 'ONE PAGE · ONE CLEAR IDEA'], ['Tu próxima idea merece espacio.', 'Your next idea deserves room.'], ['Una página directa, pensada para presentar un producto, servicio o lanzamiento.', 'A focused page to introduce a product, service, or launch.'], ['Conocer el proyecto', 'Explore the project'], ['Una experiencia para descubrir sin apuro.', 'An experience to explore at your own pace.'], ['01 — Una idea', '01 — One idea'], ['02 — Un nuevo comienzo', '02 — A fresh start'], ['EL FUTURO', 'THE FUTURE'], ['SE SIENTE', 'FEELS CLOSER'], ['DESLIZÁ PARA DESCUBRIR', 'SCROLL TO DISCOVER'],
+    ['UNA PÁGINA. UNA HISTORIA.', 'ONE PAGE. ONE STORY.'], ['Todo empieza con una buena primera impresión.', 'It all starts with a great first impression.'], ['Una landing page reúne lo esencial en un recorrido claro: presenta una propuesta, despierta interés y acompaña a cada persona hacia el siguiente paso.', 'A landing page brings everything together in a clear journey: it presents an offer, sparks interest, and guides visitors to the next step.'], ['Mensaje claro', 'A clear message'], ['Una propuesta concreta que se entiende desde el primer vistazo.', 'A focused offer people understand at a glance.'], ['Diseño con intención', 'Intentional design'], ['Jerarquía visual para destacar lo que hace única a tu idea.', 'Visual hierarchy that highlights what makes your idea unique.'], ['Acción sencilla', 'A simple next step'], ['Un camino directo para conocer, consultar o empezar.', 'A direct path to learn more, ask a question, or get started.'],
+    ['COLECCIÓN 01', 'COLLECTION 01'], ['Un momento<br>para vos.', 'A moment<br>for yourself.'], ['HECHA PARA TU LANZAMIENTO', 'MADE FOR YOUR LAUNCH'], ['Una experiencia que deja huella.', 'An experience that leaves a mark.'], ['Desde una nueva marca hasta un servicio especial, cada detalle de la página acompaña la personalidad de tu proyecto. Contenido breve, visuales expresivos y una invitación a dar el próximo paso.', 'From a new brand to a special service, every detail reflects your project’s personality. Concise copy, expressive visuals, and an invitation to take the next step.'], ['Contanos tu idea', 'Tell us your idea'], ['Una idea merece un espacio propio para crecer.', 'Every idea deserves room to grow.'], ['UNA LANDING PAGE PENSADA PARA CONECTAR', 'A LANDING PAGE MADE TO CONNECT'], ['EL PRIMER PASO PUEDE SER SIMPLE', 'THE FIRST STEP CAN BE SIMPLE'], ['Hagamos lugar<br>a tu próxima idea.', 'Make room<br>for your next idea.'], ['Empezar una conversación', 'Start a conversation'],
+    ['UNA PRESENCIA SÓLIDA PARA TU MARCA', 'A STRONG PRESENCE FOR YOUR BRAND'], ['Espacios que cuentan historias.', 'Spaces that tell stories.'], ['Una web para explicar quién sos, qué hacés y por qué elegirte.', 'A website to explain who you are, what you do, and why people should choose you.'], ['Ver proyectos', 'View projects'], ['ROSARIO, ARGENTINA', 'ROSARIO, ARGENTINA'], ['DISEÑO CON INTENCIÓN', 'INTENTIONAL DESIGN'], ['EL ESTUDIO', 'THE STUDIO'], ['Ideas sólidas.<br>Espacios que inspiran.', 'Solid ideas.<br>Spaces that inspire.'], ['Somos un equipo independiente que conecta arquitectura, paisaje y vida cotidiana. Trabajamos de forma cercana, desde la primera conversación hasta el último detalle.', 'We are an independent team connecting architecture, landscape, and everyday life. We work closely with clients, from the first conversation to the final detail.'], ['AÑOS DE OFICIO', 'YEARS OF EXPERIENCE'], ['PROYECTOS REALIZADOS', 'PROJECTS COMPLETED'], ['CIUDADES', 'CITIES'], ['QUÉ HACEMOS', 'WHAT WE DO'], ['Un proceso completo,<br>con una mirada común.', 'A complete process,<br>guided by one vision.'], ['Arquitectura', 'Architecture'], ['Proyectos residenciales y comerciales pensados para durar.', 'Residential and commercial projects built to last.'], ['Interiorismo', 'Interior design'], ['Materiales, luz y proporciones en equilibrio.', 'Materials, light, and proportion in balance.'], ['Dirección de obra', 'Project management'], ['Seguimiento cercano para que cada idea llegue a buen puerto.', 'Hands-on guidance to bring every idea to life.'], ['PROYECTO DESTACADO', 'FEATURED PROJECT'], ['CASA ENTRE ÁRBOLES · 2025', 'HOUSE AMONG TREES · 2025'], ['Una casa abierta<br>a la luz del norte.', 'A home open<br>to the northern light.'], ['Materiales honestos y una relación directa con el paisaje crean un refugio simple para vivir mejor.', 'Honest materials and a close connection to the landscape create a simple retreat for better living.'], ['Ver el proyecto', 'View project'], ['¿Imaginamos<br>algo juntos?', 'Shall we imagine<br>something together?'], ['Nos gusta escuchar ideas nuevas.', 'We love hearing new ideas.'], ['Escribir al estudio', 'Contact the studio'],
+    ['TU TIENDA, ABIERTA TODOS LOS DÍAS', 'YOUR STORE, OPEN EVERY DAY'], ['Pequeños objetos, grandes momentos.', 'Small objects, meaningful moments.'], ['Una tienda simple de recorrer, con productos, detalles y una compra clara.', 'An easy-to-browse shop with considered products, thoughtful details, and a clear checkout.'], ['Explorar colección', 'Explore the collection'], ['HECHO EN ARGENTINA · ENVÍOS A TODO EL PAÍS', 'MADE IN ARGENTINA · SHIPPING NATIONWIDE'], ['OBJETOS<br>PARA HABITAR', 'OBJECTS<br>TO LIVE WITH'], ['PIEZAS ÚNICAS', 'ONE-OF-A-KIND PIECES'], ['DISEÑO LOCAL', 'LOCAL DESIGN'], ['MATERIALES NOBLES', 'NATURAL MATERIALS'], ['HECHO CON CALMA', 'MADE WITH CARE'], ['DESCUBRÍ CASA BOSQUE', 'DISCOVER CASA BOSQUE'], ['Objetos para cada rincón.', 'Objects for every corner.'], ['VER TODAS LAS CATEGORÍAS →', 'VIEW ALL CATEGORIES →'], ['CERÁMICA', 'CERAMICS'], ['ILUMINACIÓN', 'LIGHTING'], ['TEXTILES', 'TEXTILES'], ['SELECCIÓN DE LA CASA', 'THE HOUSE EDIT'], ['Favoritos de temporada.', 'Seasonal favorites.'], ['VER COLECCIÓN →', 'VIEW COLLECTION →'], ['Jarrón Arcilla', 'Clay Vase'], ['Lámpara Alba', 'Alba Lamp'], ['Cuenco Río', 'Río Bowl'], ['Textil Siesta', 'Siesta Throw'], ['HECHO A MANO<br>EN PEQUEÑAS SERIES', 'HANDMADE<br>IN SMALL BATCHES'], ['EL VALOR DE LO HECHO DESPACIO', 'THE VALUE OF SLOW MAKING'], ['Diseño que se queda.', 'Design that stays.'], ['Elegimos piezas que encuentran su lugar en tu casa y te acompañan por mucho tiempo. Producción local, materiales nobles y cuidado en cada terminación.', 'We choose pieces that feel at home and stay with you for years. Local production, natural materials, and care in every finish.'], ['Conocer nuestra historia', 'Our story'], ['UNA CARTA DESDE CASA', 'A LETTER FROM HOME'], ['Novedades, ideas<br>y pequeños hallazgos.', 'News, ideas,<br>and little discoveries.'], ['Recibí novedades de la tienda y una nota de inspiración de vez en cuando.', 'Get shop updates and an occasional note of inspiration.'], ['Tu correo electrónico', 'Your email address'], ['SUMARME →', 'SIGN ME UP →']
+  ];
+  function localizeMarkup(markup) {
+    if (language !== 'en') return markup;
+    let result = englishText.slice().sort((a, b) => b[0].length - a[0].length).reduce((html, [source, target]) => html.split(source).join(target), markup);
+    const email = 'https://mail.google.com/mail/?view=cm&fs=1&to=rainbow85612@gmail.com&su=Website%20inquiry&body=Hi%20Tom%C3%A1s%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20ask%20you%20about%20a%20website.';
+    const whatsapp = 'https://wa.me/5493413690901?text=Hi%20Tom%C3%A1s%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20ask%20you%20about%20a%20website.';
+    return result.split(EMAIL_URL).join(email).split(WHATSAPP_URL).join(whatsapp);
+  }
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canParallax = !reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const projectPreview = document.getElementById('project-preview');
@@ -114,7 +161,7 @@
     const mockup = content.querySelector('.site-mockup');
     if (!mockup) return;
     const example = websiteExamples[0];
-    mockup.innerHTML = renderWebsiteExample(example);
+    mockup.innerHTML = localizeMarkup(renderWebsiteExample(example));
     const panel = content.querySelector('#site-preview');
     panel?.setAttribute('aria-labelledby', `site-tab-${example.id}`);
   }
@@ -138,11 +185,11 @@
     }
     mockup.classList.add('is-changing');
     window.setTimeout(() => {
-      guide?.replaceWith(document.createRange().createContextualFragment(renderSiteGuide(example, websiteExamples.indexOf(example))));
+      guide?.replaceWith(document.createRange().createContextualFragment(localizeMarkup(renderSiteGuide(example, websiteExamples.indexOf(example)))));
       const updatedGuide = content.querySelector('.site-guide');
       mockup.dataset.siteKind = example.kind;
       mockup.dataset.light = String(websiteExamples.findIndex(item => item.id === id) + 1);
-      mockup.innerHTML = renderWebsiteExample(example);
+      mockup.innerHTML = localizeMarkup(renderWebsiteExample(example));
       panel.setAttribute('aria-labelledby', `site-tab-${example.id}`);
       requestAnimationFrame(() => updatedGuide?.classList.remove('is-changing'));
       requestAnimationFrame(() => mockup.classList.remove('is-changing'));
@@ -157,7 +204,7 @@
     panel.classList.add('is-expanded');
     panel.setAttribute('role', 'dialog');
     panel.setAttribute('aria-modal', 'true');
-    panel.setAttribute('aria-label', `Demostración a pantalla completa: ${activeExample?.label || 'sitio web'}`);
+    panel.setAttribute('aria-label', language === 'en' ? `Full-screen demo: ${localizeMarkup(activeExample?.label || 'sitio web')}` : `Demostración a pantalla completa: ${activeExample?.label || 'sitio web'}`);
     panel.scrollTop = 0;
     panel.querySelectorAll('.site-expand, .site-more').forEach(button => button.setAttribute('aria-expanded', 'true'));
     document.body.classList.add('has-expanded-site');
@@ -206,20 +253,63 @@
     const minutes = now.getHours() * 60 + now.getMinutes();
     let message;
 
-    if (minutes >= 300 && minutes <= 480) message = '¿Qué madrugador, no? Buenos días.';
-    else if (minutes >= 481 && minutes <= 719) message = 'Buenos días.';
+    if (minutes >= 300 && minutes <= 480) message = language === 'es' ? '¿Qué madrugador, no? Buenos días.' : 'An early bird, huh? Good morning.';
+    else if (minutes >= 481 && minutes <= 719) message = language === 'es' ? 'Buenos días.' : 'Good morning.';
     else if (minutes >= 720 && minutes <= 1139) {
-      const weekday = new Intl.DateTimeFormat('es-AR', { weekday: 'long' }).format(now);
-      message = `Buen ${weekday}.`;
+      const weekday = new Intl.DateTimeFormat(language === 'es' ? 'es-AR' : 'en-US', { weekday: 'long' }).format(now);
+      message = language === 'es' ? `Buen ${weekday}.` : `Have a good ${weekday}.`;
     }
-    else if (minutes >= 1140 && minutes <= 1349) message = 'Buenas noches.';
-    else if (minutes >= 1350 || minutes <= 59) message = 'Es muy tarde para seguir despierto. Buenas noches.';
-    else if (minutes <= 179) message = 'En serio, andá a dormir. Buenas noches.';
-    else message = 'A esta altura no sé si decirte buenas noches o buenos días.';
+    else if (minutes >= 1140 && minutes <= 1349) message = language === 'es' ? 'Buenas noches.' : 'Good evening.';
+    else if (minutes >= 1350 || minutes <= 59) message = language === 'es' ? 'Es muy tarde para seguir despierto. Buenas noches.' : 'It’s very late to still be awake. Good night.';
+    else if (minutes <= 179) message = language === 'es' ? 'En serio, andá a dormir. Buenas noches.' : 'Seriously, go to sleep. Good night.';
+    else message = language === 'es' ? 'A esta altura no sé si decirte buenas noches o buenos días.' : 'At this point, I’m not sure whether to say good night or good morning.';
 
     greeting.textContent = message;
   }
   updateGreeting();
+
+  function applyLanguage() {
+    const isEnglish = language === 'en';
+    document.documentElement.lang = language;
+    document.title = isEnglish ? 'Tomás Daniel Flores | Web developer in Rosario, Argentina' : 'Tomás Daniel Flores | Desarrollador web en Rosario, Santa Fe';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', isEnglish
+      ? 'Tomás Daniel Flores, web developer in Rosario, Argentina. I design custom landing pages, corporate websites, and online stores.'
+      : 'Tomás Daniel Flores, desarrollador web en Rosario, Santa Fe. Diseño sitios a medida: landing pages, sitios corporativos y tiendas online.');
+    const toggle = document.getElementById('language-toggle');
+    toggle.setAttribute('aria-label', isEnglish ? 'Change language, currently English' : 'Cambiar idioma, actualmente español');
+    toggle.setAttribute('aria-pressed', String(isEnglish));
+    toggle.querySelectorAll('span').forEach(option => {
+      const selected = option.textContent.toLowerCase() === language;
+      option.setAttribute('aria-current', String(selected));
+    });
+    menu.setAttribute('aria-label', isEnglish ? 'Main sections' : 'Secciones principales');
+    menu.querySelector('.menu-intro-subtitle').textContent = isEnglish ? 'Tomás Daniel Flores. Web developer.' : 'Tomás Daniel Flores. Desarrollador web.';
+    menu.querySelector('[data-target="sites"] .menu-label').textContent = isEnglish ? 'Websites' : 'Sitios web';
+    menu.querySelector('[data-target="about"] .menu-label').textContent = isEnglish ? 'About me' : 'Sobre mí';
+    menu.querySelector('.menu-status').textContent = isEnglish ? 'Work in progress' : 'Trabajo en proceso';
+    menu.querySelector('[data-target="contact"] .menu-label').textContent = isEnglish ? 'Contact' : 'Contacto';
+    backButton.innerHTML = `<span>←</span> ${isEnglish ? 'BACK TO MENU' : 'VOLVER AL MENÚ'}`;
+    wrapper.setAttribute('aria-label', isEnglish ? 'Show menu' : 'Mostrar menú');
+    greeting.setAttribute('lang', language);
+    updateGreeting();
+  }
+
+  document.getElementById('language-toggle').addEventListener('click', () => {
+    language = language === 'es' ? 'en' : 'es';
+    try { localStorage.setItem(languageStorageKey, language); } catch {}
+    applyLanguage();
+    const section = stage.dataset.section;
+    if (!stage.classList.contains('content-open') || !sections[section]) return;
+    const selectedSite = content.querySelector('.site-type.is-active')?.dataset.siteType || 'landing';
+    if (content.querySelector('.site-preview.is-expanded')) collapseWebsiteExample();
+    content.innerHTML = localizeMarkup(sections[section]);
+    if (section === 'sites') {
+      initializeSitesDemo();
+      if (selectedSite !== 'landing') selectWebsiteExample(selectedSite);
+    }
+    if (section === 'about') syncAboutStatus();
+  });
+  applyLanguage();
 
   for (let i = 0; i < count; i++) {
     const y = 1 - (i / (count - 1)) * 2;
@@ -372,7 +462,7 @@
     ensureCanvasCapacity(targetOrbWidth(state, section));
     const inContent = state === 'content';
     wrapper.setAttribute('aria-pressed', String(state !== 'home'));
-    wrapper.setAttribute('aria-label', state === 'home' ? 'Mostrar menú' : state === 'menu' ? 'Cerrar menú' : 'Volver al menú');
+    wrapper.setAttribute('aria-label', language === 'en' ? (state === 'home' ? 'Show menu' : state === 'menu' ? 'Close menu' : 'Return to menu') : state === 'home' ? 'Mostrar menú' : state === 'menu' ? 'Cerrar menú' : 'Volver al menú');
     menu.setAttribute('aria-hidden', String(state !== 'menu'));
     document.querySelector('.content').setAttribute('aria-hidden', String(!inContent));
     if (section !== 'about') stage.querySelector('.hero > .about-status')?.remove();
@@ -473,7 +563,7 @@
     if (section === 'sites') {
       if (stage.classList.contains('sites-entering')) return;
       if (reduceMotion) {
-        content.innerHTML = sections.sites;
+        content.innerHTML = localizeMarkup(sections.sites);
         setState('content', 'sites');
         initializeSitesDemo();
         return;
@@ -485,7 +575,7 @@
       const finishEntry = event => {
         if (event.target !== wrapper || event.animationName !== 'sites-enter-orb') return;
         wrapper.removeEventListener('animationend', finishEntry);
-        content.innerHTML = sections.sites;
+        content.innerHTML = localizeMarkup(sections.sites);
         initializeSitesDemo();
         stage.classList.add('sites-landing');
         stage.classList.remove('sites-entering');
@@ -495,7 +585,7 @@
       wrapper.addEventListener('animationend', finishEntry);
       return;
     }
-    content.innerHTML = sections[section];
+    content.innerHTML = localizeMarkup(sections[section]);
     setState('content', section);
     if (section === 'projects') {
       activePreviewIndex = -1;

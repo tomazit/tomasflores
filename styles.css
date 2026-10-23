@@ -60,6 +60,10 @@ button { color: inherit; font: inherit; }
   .stage.content-open[data-section="about"]:has(.orb-wrap:hover) .about-map::after { opacity: 1; transform: scale(1); }
 }
 .menu { position: absolute; z-index: 1; left: 63%; top: 50%; width: min(300px, 25vw); display: grid; gap: 5px; transform: translate(20px,-50%); opacity: 0; visibility: hidden; transition: opacity .55s ease, transform .7s var(--ease), visibility .55s; }
+.language-toggle { position: absolute; top: -42px; right: 0; display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; background: rgba(255,255,255,.035); color: rgba(238,240,239,.52); font: 9px 'DM Mono',monospace; letter-spacing: .08em; cursor: pointer; transition: color .2s ease, border-color .2s ease, background-color .2s ease; }
+.language-toggle i { color: rgba(238,240,239,.28); font-style: normal; }
+.language-toggle [aria-current="true"] { color: var(--text); }
+.language-toggle:hover, .language-toggle:focus-visible { border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: var(--text); outline: none; }
 .menu-intro { margin: 0 0 21px; color: var(--text); font-family: 'Instrument Serif', serif; line-height: 1.12; letter-spacing: -.025em; }
 .menu-intro p { margin: 0; }
 .menu-intro .greeting { color: var(--accent); font-size: clamp(34px, 4vw, 52px); font-style:}
