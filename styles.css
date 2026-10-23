@@ -358,14 +358,15 @@ button { color: inherit; font: inherit; }
   .site-type span { display: none; }
   .site-type .site-icon { display: inline-flex; width: 15px; height: 15px; flex-basis: 15px; }
   .site-guide { grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 16px; margin-bottom: 17px; padding: 16px; }
-  .site-guide-main h2 { font-size: clamp(22px,5vw,30px); }
-  .site-guide-summary { font-size: 12px; }
-  .site-guide-facts { gap: 11px; }
-  .site-guide-facts p { font-size: 11px; }
+  .site-guide-main h2 { font-size: clamp(30px,7vw,38px); line-height: 1; }
+  .site-guide-summary { font-size: clamp(15px,4vw,17px); line-height: 1.7; }
+  .site-guide-facts { gap: 14px; }
+  .site-guide-facts article > span, .site-guide-level > span { font-size: 9px; }
+  .site-guide-facts p { font-size: clamp(14px,3.7vw,16px); line-height: 1.65; }
   .site-guide-complexity { grid-column: 1 / -1; grid-template-columns: minmax(112px,.65fr) minmax(70px,.4fr) minmax(0,1fr); align-items: center; gap: 12px; padding: 12px 0 0; border-top: 1px solid rgba(255,255,255,.12); border-left: 0; }
   .site-guide-level { align-items: center; }
   .site-guide-level strong { font-size: 16px; }
-  .site-guide-complexity > p { font-size: 10px; }
+  .site-guide-complexity > p { font-size: 13px; line-height: 1.6; }
   .sites-heading { text-align: left; }
   .sites-heading .content-kicker { margin-bottom: 3px; font-size: 10px; }
   .sites-heading h1 { font-size: clamp(36px, 10vw, 52px); }
@@ -458,6 +459,20 @@ button { color: inherit; font: inherit; }
   }
   .stage.content-open[data-section="about"] .content,
   .stage.content-open[data-section="projects"] .content { text-align: left; }
+  .stage.content-open[data-section="about"] .about-lead {
+    max-width: 36ch;
+    font-size: clamp(19px, 5vw, 22px);
+    line-height: 1.55;
+    letter-spacing: -.025em;
+  }
+  .stage.content-open[data-section="about"] .about-detail {
+    max-width: 42ch;
+    margin-top: 22px;
+    font-size: clamp(16px, 4.25vw, 18px);
+    line-height: 1.75;
+  }
+  .stage.content-open[data-section="about"] .about-links { gap: 18px 22px; margin-top: 28px; }
+  .stage.content-open[data-section="about"] .about-link { font-size: 11px; }
   .stage.content-open[data-section="about"] .about-status { justify-items: start; margin: 25px 0 10px; text-align: left; }
   .stage.content-open[data-section="contact"] .content { text-align: center; }
   .stage.content-open[data-section="contact"] .contact-section { width: 100%; }
