@@ -202,8 +202,19 @@
   }
 
   function updateGreeting() {
-    const hour = new Date().getHours();
-    greeting.textContent = hour >= 5 && hour < 12 ? '¡Buen día!' : hour >= 12 && hour < 20 ? '¡Buenas tardes!' : '¡Buenas noches!';
+    const now = new Date();
+    const minutes = now.getHours() * 60 + now.getMinutes();
+    let message;
+
+    if (minutes >= 300 && minutes <= 480) message = '¿Qué madrugador, no? Buenos días.';
+    else if (minutes >= 481 && minutes <= 719) message = 'Buenos días.';
+    else if (minutes >= 720 && minutes <= 1139) message = 'Buenas tardes.';
+    else if (minutes >= 1140 && minutes <= 1349) message = 'Buenas noches.';
+    else if (minutes >= 1350 || minutes <= 59) message = 'Es muy tarde para seguir despierto. Buenas noches.';
+    else if (minutes <= 179) message = 'En serio, andá a dormir. Buenas noches.';
+    else message = 'A esta altura no sé si decirte buenas noches o buenos días.';
+
+    greeting.textContent = message;
   }
   updateGreeting();
 
