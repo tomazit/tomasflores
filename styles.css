@@ -311,6 +311,10 @@ button { color: inherit; font: inherit; }
 .site-social a { display: inline-flex; width: 32px; height: 32px; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; color: #aeb0b7; transition: color 220ms ease, border-color 220ms ease, background-color 220ms ease, transform 220ms var(--ease); }
 .site-social a:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 56%, transparent); background: color-mix(in srgb, var(--accent) 8%, transparent); color: var(--accent); }
 .site-social svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.site-domain-note { width: fit-content; display: inline-flex; align-items: center; gap: 9px; margin: 25px 2px 4px; padding: 11px 14px; border: 1px solid rgba(255,255,255,.1); border-radius: 999px; color: #c5c6c9; font-size: 11px; line-height: 1.4; text-decoration: none; transition: border-color 220ms ease, background-color 220ms ease, color 220ms ease; }
+.site-domain-note:hover { border-color: rgba(243,128,32,.35); background: rgba(243,128,32,.06); color: #f0f0f1; }
+.site-domain-note:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.site-domain-note svg { width: 19px; height: 19px; flex: 0 0 auto; fill: #f38020; }
 .hint { position: absolute; z-index: 3; left: 50%; bottom: 8.5%; margin: 0; color: #777982; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .14em; white-space: nowrap; transform: translateX(-50%); transition: opacity .35s; }
 .hint span { padding: 0 8px; color: var(--accent); }
 .stage.menu-open .hint, .stage.content-open .hint { opacity: 0; }
@@ -414,6 +418,7 @@ button { color: inherit; font: inherit; }
   .sites-contact { margin-top: 8px; }
   .site-footer { align-items: flex-start; flex-direction: column; gap: 0; margin-top: 18px; padding-inline: 3px; }
   .site-social { margin-top: 10px; }
+  .site-domain-note { max-width: 100%; margin: 21px 3px 4px; padding: 10px 12px; font-size: 11px; }
 }
 @media (min-width: 701px) and (max-height: 700px) {
   .content { top: 50%; max-height: 88svh; padding-top: 12px; padding-bottom: 12px; }
