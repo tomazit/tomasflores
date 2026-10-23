@@ -37,14 +37,15 @@
     ['VER EJEMPLOS', 'VIEW EXAMPLES'], ['Correo', 'Email'], ['Disponible para proyectos', 'Available for projects'],
     ['Desarrollo sitios web a medida: claros, rápidos y bien cuidados.', 'I build custom websites that are clear, fast, and thoughtfully made.'],
     ['Estudiante en la Universidad Tecnológica Nacional y desarrollador web. Empecé a aprender por mi cuenta en 2022 con HTML, CSS y JavaScript, y desde entonces no paré de sumar herramientas. Trabajo con distintos lenguajes, frameworks y modelos para encontrar la solución adecuada para cada proyecto. Hoy armo sitios a medida, cuidando el diseño y los detalles.', 'I study at the National Technological University and work as a web developer. I started learning on my own in 2022 with HTML, CSS, and JavaScript, and have kept adding tools ever since. I work with different languages, frameworks, and models to find the right solution for each project. Today, I build custom websites with care for design and detail.'],
-    ['Ejemplos seleccionados', 'Selected examples'], ['Algunas cosas hechas con intención.', 'A few things made with intention.'], ['Ejemplos de sitios web', 'Website examples'], ['Tipos de sitio web', 'Website types'], ['Estado y ubicación', 'Status and location'], ['Mapa de Argentina con Santa Fe resaltada', 'Map of Argentina with Santa Fe highlighted'],
+    ['Ejemplos seleccionados', 'Selected examples'], ['Algunas cosas hechas con intención.', 'A few things made with intention.'], ['Estas son algunas demostraciones de lo que puedo ofrecer.', 'Here are a few examples of what I can offer.'], ['Ejemplos de sitios web', 'Website examples'], ['Tipos de sitio web', 'Website types'], ['Estado y ubicación', 'Status and location'], ['Mapa de Argentina con Santa Fe resaltada', 'Map of Argentina with Santa Fe highlighted'],
+    ['Ferretería Don Aníbal', 'Ferretería Don Aníbal'], ['Tienda online para una ferretería familiar de Rosario.', 'Online store for a family-owned hardware store in Rosario.'], ['Diseño web', 'Web design'], ['Catálogo', 'Product catalog'], ['Imagen de portada de Ferretería Don Aníbal, ferretería familiar de Rosario.', 'Homepage image for Ferretería Don Aníbal, a family-owned hardware store in Rosario.'],
     ['Tienda de ropa', 'Clothing store'], ['Una experiencia de compra simple y cuidada.', 'A simple, thoughtful shopping experience.'], ['Vista conceptual de una tienda de ropa, proyecto próximamente.', 'Concept preview of a clothing store, coming soon.'], ['Próximamente', 'Coming soon'],
     ['Estudio creativo', 'Creative studio'], ['Un sitio visual para un estudio independiente.', 'A visual website for an independent studio.'], ['Vista conceptual de un sitio para un estudio creativo, proyecto próximamente.', 'Concept preview of a creative studio website, coming soon.'], ['Identidad', 'Brand identity'], ['Desarrollo web', 'Web development'],
     ['Panel de métricas', 'Metrics dashboard'], ['Datos importantes, claros de un vistazo.', 'Important data, clear at a glance.'], ['Vista conceptual de un panel de métricas, proyecto próximamente.', 'Concept preview of a metrics dashboard, coming soon.'], ['Panel de datos', 'Data dashboard'], ['Visualización', 'Data visualization'], ['En curso', 'In progress'],
-    ['Portfolio interactivo', 'Interactive portfolio'], ['Una presentación digital con movimiento sutil.', 'A digital showcase with subtle motion.'], ['Vista conceptual de un portfolio interactivo, proyecto próximamente.', 'Concept preview of an interactive portfolio, coming soon.'], ['Interacción', 'Interaction'], ['Diseño web', 'Web design'], ['E-commerce', 'E-commerce'],
+    ['Portfolio interactivo', 'Interactive portfolio'], ['Una presentación digital con movimiento sutil.', 'A digital showcase with subtle motion.'], ['Vista conceptual de un portfolio interactivo, proyecto próximamente.', 'Concept preview of an interactive portfolio, coming soon.'], ['Interacción', 'Interaction'], ['Diseño web', 'Web design'], ['E-commerce', 'E-commerce'], ['Una cafetería de barrio para disfrutar buen café, algo rico y una pausa.', 'A neighborhood café for good coffee, something delicious, and a little pause.'], ['Publicado', 'Live'], ['Imagen principal de Café Tierra, una cafetería de barrio de estilo cálido y natural.', 'Café Tierra homepage, a neighborhood coffee shop with a warm, natural style.'],
     ['Landing page', 'Landing page'], ['Sitio corporativo', 'Corporate website'], ['Una página. Un objetivo claro.', 'One page. One clear goal.'], ['Una página enfocada en presentar una propuesta y llevar a una acción concreta: consultar, reservar o comprar.', 'A focused page that presents an offer and guides visitors toward one clear action: inquire, book, or buy.'],
-    ['Lanzamientos, campañas, servicios puntuales o una nueva marca que necesita darse a conocer.', 'Launches, campaigns, focused services, or a new brand building awareness.'], ['Presentación, beneficios, prueba social y un llamado a la acción directo.', 'An introduction, benefits, social proof, and a clear call to action.'], ['Baja', 'Low'], ['Menos páginas y un recorrido simple. Puede crecer con integraciones o contenido especial.', 'Fewer pages and a simple journey. It can grow with integrations or custom content.'],
-    ['Toda tu marca, bien presentada.', 'Your brand, presented with clarity.'], ['Un sitio con varias secciones para explicar quién sos, qué ofrecés y por qué elegirte, con una presencia sólida y profesional.', 'A multi-section website that explains who you are, what you offer, and why people should choose you—with a confident, professional presence.'], ['Empresas, profesionales, estudios y organizaciones con varios servicios o proyectos para mostrar.', 'Businesses, professionals, studios, and organizations with multiple services or projects to showcase.'], ['Inicio, servicios, equipo o historia, trabajos destacados y formas de contacto.', 'Home, services, team or story, featured work, and ways to get in touch.'], ['Media', 'Medium'], ['Requiere organizar varias secciones. Idiomas, formularios e integraciones suman alcance.', 'Several sections need planning. Languages, forms, and integrations add scope.'],
+    ['Lanzamientos, campañas, servicios puntuales o una nueva marca que necesita darse a conocer.', 'Launches, campaigns, focused services, or a new brand building awareness.'], ['Presentación, beneficios, prueba social y un llamado a la acción directo.', 'An introduction, benefits, social proof, and a clear call to action.'], ['Baja', 'Low'], ['Menos páginas y un recorrido simple. Puede crecer con integraciones o contenido especial. En la gran mayoría de los casos, la web está lista en menos de 24 horas; depende del alcance y de tener el contenido preparado.', 'Fewer pages and a simple journey. It can grow with integrations or custom content. In the vast majority of cases, the website is ready in under 24 hours; timing depends on scope and having the content prepared.'],
+    ['Toda tu marca, bien presentada.', 'Your brand, presented with clarity.'], ['Un sitio con varias secciones para explicar quién sos, qué ofrecés y por qué elegirte, con una presencia sólida y profesional.', 'A multi-section website that explains who you are, what you offer, and why people should choose you—with a confident, professional presence.'], ['Empresas, profesionales, estudios y organizaciones con varios servicios o proyectos para mostrar.', 'Businesses, professionals, studios, and organizations with multiple services or projects to showcase.'], ['Inicio, servicios, equipo o historia, trabajos destacados y formas de contacto.', 'Home, services, team or story, featured work, and ways to get in touch.'], ['Media', 'Medium'], ['Requiere organizar varias secciones. Idiomas, formularios e integraciones suman alcance. En la gran mayoría de los casos, la web está lista en menos de 24 horas; depende del alcance y de tener el contenido preparado.', 'Several sections need planning. Languages, forms, and integrations add scope. In the vast majority of cases, the website is ready in under 24 hours; timing depends on scope and having the content prepared.'],
     ['Tu catálogo, listo para vender.', 'Your catalog, ready to sell.'], ['Una tienda online que organiza tus productos y acompaña a cada cliente desde el descubrimiento hasta la compra.', 'An online store that organizes your products and guides customers from discovery to checkout.'], ['Marcas y comercios que quieren vender productos por internet y gestionar pedidos.', 'Brands and retailers looking to sell products online and manage orders.'], ['Catálogo, fichas de producto, carrito y conexión con pagos y envíos según el proyecto.', 'Catalog, product pages, cart, and payment and shipping integrations tailored to the project.'], ['Alta', 'High'], ['Productos, pagos, logística y gestión requieren más configuración e integración.', 'Products, payments, logistics, and order management require more setup and integration.'],
     ['GUÍA PARA ELEGIR', 'A GUIDE TO CHOOSING'], ['IDEAL PARA', 'IDEAL FOR'], ['SUELE INCLUIR', 'USUALLY INCLUDES'], ['COMPLEJIDAD', 'COMPLEXITY'], ['Complejidad orientativa:', 'Estimated complexity:'], ['nivel', 'level'], ['de 3', 'out of 3'],
     ['Expandir demostración', 'Expand demo'], ['Ver en pantalla completa', 'View full screen'], ['Expandir', 'Expand'], ['Volver a la vista previa', 'Back to preview'], ['Desmaximizar ventana', 'Exit full screen'], ['Ver más de la demostración', 'See more of the demo'], ['Ver más', 'See more'],
@@ -72,17 +73,15 @@
   let pointer = { x: 0, y: 0, targetX: 0, targetY: 0, hover: 0, targetHover: 0 };
 
   const projects = [
-    { title: 'Tienda de ropa', description: 'Una experiencia de compra simple y cuidada.', technologies: ['Diseño web', 'E-commerce'], yearOrStatus: 'Próximamente', image: 'assets/projects/tienda-de-ropa.webp', url: 'https://example.com/tienda-de-ropa', alt: 'Vista conceptual de una tienda de ropa, proyecto próximamente.' },
-    { title: 'Estudio creativo', description: 'Un sitio visual para un estudio independiente.', technologies: ['Identidad', 'Desarrollo web'], yearOrStatus: 'Próximamente', image: 'assets/projects/estudio-creativo.webp', url: 'https://example.com/estudio-creativo', alt: 'Vista conceptual de un sitio para un estudio creativo, proyecto próximamente.' },
-    { title: 'Panel de métricas', description: 'Datos importantes, claros de un vistazo.', technologies: ['Panel de datos', 'Visualización'], yearOrStatus: 'En curso', image: 'assets/projects/panel-de-metricas.webp', url: 'https://example.com/panel-de-metricas', alt: 'Vista conceptual de un panel de métricas, proyecto próximamente.' },
-    { title: 'Portfolio interactivo', description: 'Una presentación digital con movimiento sutil.', technologies: ['Portfolio', 'Interacción'], yearOrStatus: 'Próximamente', image: 'assets/projects/portfolio-interactivo.webp', url: 'https://example.com/portfolio-interactivo', alt: 'Vista conceptual de un portfolio interactivo, proyecto próximamente.' }
+    { title: 'Café Tierra', brand: 'café tierra', brandMeta: 'COFFEE & EVERYDAY RITUALS', logo: 'assets/projects/cafe-tierra-logo.svg', description: 'Una cafetería de barrio para disfrutar buen café, algo rico y una pausa.', type: 'Sitio corporativo', image: 'assets/projects/cafe-tierra.jpg', url: 'https://tomazit.github.io/coffee-shop/', alt: 'Imagen principal de Café Tierra, una cafetería de barrio de estilo cálido y natural.' },
+    { title: 'Ferretería Don Aníbal', brand: 'DON ANÍBAL', brandMeta: 'FERRETERÍA · ROSARIO', logo: 'assets/projects/ferreteria-don-anibal-logo.svg', description: 'Tienda online para una ferretería familiar de Rosario.', type: 'eCommerce', image: 'assets/projects/ferreteria-don-anibal.jpg', url: 'https://tomazit.github.io/ferreteriadonanibal/', alt: 'Imagen de portada de Ferretería Don Aníbal, ferretería familiar de Rosario.' }
   ];
   let activePreviewIndex = 0;
   let expandedPreviewTrigger = null;
 
   const websiteExamples = [
-    { id: 'landing', label: 'Landing page', icon: 'spark', guideTitle: 'Una página. Un objetivo claro.', guideSummary: 'Una página enfocada en presentar una propuesta y llevar a una acción concreta: consultar, reservar o comprar.', idealFor: 'Lanzamientos, campañas, servicios puntuales o una nueva marca que necesita darse a conocer.', includes: 'Presentación, beneficios, prueba social y un llamado a la acción directo.', complexity: 'Baja', complexityLevel: 1, complexityNote: 'Menos páginas y un recorrido simple. Puede crecer con integraciones o contenido especial.', eyebrow: 'UNA SOLA PÁGINA · UNA IDEA CLARA', brand: 'AURA', navigation: 'Estudio  ·  Servicios  ·  Contacto', title: 'Tu próxima idea merece espacio.', description: 'Una página directa, pensada para presentar un producto, servicio o lanzamiento.', action: 'Conocer el proyecto', kind: 'landing' },
-    { id: 'corporate', label: 'Sitio corporativo', icon: 'building', guideTitle: 'Toda tu marca, bien presentada.', guideSummary: 'Un sitio con varias secciones para explicar quién sos, qué ofrecés y por qué elegirte, con una presencia sólida y profesional.', idealFor: 'Empresas, profesionales, estudios y organizaciones con varios servicios o proyectos para mostrar.', includes: 'Inicio, servicios, equipo o historia, trabajos destacados y formas de contacto.', complexity: 'Media', complexityLevel: 2, complexityNote: 'Requiere organizar varias secciones. Idiomas, formularios e integraciones suman alcance.', eyebrow: 'UNA PRESENCIA SÓLIDA PARA TU MARCA', brand: 'ESTUDIO NORTE', navigation: 'Estudio  ·  Servicios  ·  Proyectos', title: 'Espacios que cuentan historias.', description: 'Una web para explicar quién sos, qué hacés y por qué elegirte.', action: 'Ver proyectos', kind: 'corporate' },
+    { id: 'landing', label: 'Landing page', icon: 'spark', guideTitle: 'Una página. Un objetivo claro.', guideSummary: 'Una página enfocada en presentar una propuesta y llevar a una acción concreta: consultar, reservar o comprar.', idealFor: 'Lanzamientos, campañas, servicios puntuales o una nueva marca que necesita darse a conocer.', includes: 'Presentación, beneficios, prueba social y un llamado a la acción directo.', complexity: 'Baja', complexityLevel: 1, complexityNote: 'Menos páginas y un recorrido simple. Puede crecer con integraciones o contenido especial. En la gran mayoría de los casos, la web está lista en menos de 24 horas; depende del alcance y de tener el contenido preparado.', eyebrow: 'UNA SOLA PÁGINA · UNA IDEA CLARA', brand: 'AURA', navigation: 'Estudio  ·  Servicios  ·  Contacto', title: 'Tu próxima idea merece espacio.', description: 'Una página directa, pensada para presentar un producto, servicio o lanzamiento.', action: 'Conocer el proyecto', kind: 'landing' },
+    { id: 'corporate', label: 'Sitio corporativo', icon: 'building', guideTitle: 'Toda tu marca, bien presentada.', guideSummary: 'Un sitio con varias secciones para explicar quién sos, qué ofrecés y por qué elegirte, con una presencia sólida y profesional.', idealFor: 'Empresas, profesionales, estudios y organizaciones con varios servicios o proyectos para mostrar.', includes: 'Inicio, servicios, equipo o historia, trabajos destacados y formas de contacto.', complexity: 'Media', complexityLevel: 2, complexityNote: 'Requiere organizar varias secciones. Idiomas, formularios e integraciones suman alcance. En la gran mayoría de los casos, la web está lista en menos de 24 horas; depende del alcance y de tener el contenido preparado.', eyebrow: 'UNA PRESENCIA SÓLIDA PARA TU MARCA', brand: 'ESTUDIO NORTE', navigation: 'Estudio  ·  Servicios  ·  Proyectos', title: 'Espacios que cuentan historias.', description: 'Una web para explicar quién sos, qué hacés y por qué elegirte.', action: 'Ver proyectos', kind: 'corporate' },
     { id: 'commerce', label: 'eCommerce', icon: 'bag', guideTitle: 'Tu catálogo, listo para vender.', guideSummary: 'Una tienda online que organiza tus productos y acompaña a cada cliente desde el descubrimiento hasta la compra.', idealFor: 'Marcas y comercios que quieren vender productos por internet y gestionar pedidos.', includes: 'Catálogo, fichas de producto, carrito y conexión con pagos y envíos según el proyecto.', complexity: 'Alta', complexityLevel: 3, complexityNote: 'Productos, pagos, logística y gestión requieren más configuración e integración.', eyebrow: 'TU TIENDA, ABIERTA TODOS LOS DÍAS', brand: 'CASA BOSQUE', navigation: 'Objetos  ·  Colecciones  ·  Bolsa (0)', title: 'Pequeños objetos, grandes momentos.', description: 'Una tienda simple de recorrer, con productos, detalles y una compra clara.', action: 'Explorar colección', kind: 'commerce' }
   ];
 
@@ -227,12 +226,18 @@
   }
 
   function renderProjects() {
-    const rows = projects.map((project, index) => `<a class="project-row" href="${project.url}" target="_blank" rel="noopener noreferrer" data-project-index="${index}" style="--row-delay:${index * 75}ms"><span class="project-thumb"><img src="${project.image}" alt="${project.alt}" width="1200" height="750" decoding="async"></span><span class="project-copy"><span class="project-title"><span class="project-title-text">${project.title}</span><span class="project-arrow" aria-hidden="true">→</span></span><span class="project-description">${project.description}</span><span class="project-technologies">${project.technologies.join(' · ')}</span></span><span class="project-meta">${project.yearOrStatus}</span></a>`).join('');
-    return `<div class="projects-section"><p class="content-kicker">02 &nbsp; / &nbsp; Ejemplos seleccionados</p><h1>Ejemplos<span>.</span></h1><p class="content-lead">Algunas cosas hechas con intención.</p><div class="project-list" aria-label="Ejemplos de sitios web">${rows}</div></div>`;
+    const rows = projects.map((project, index) => {
+      const inner = `<span class="project-thumb"><img src="${project.image}" alt="${project.alt}" width="1200" height="750" decoding="async"><span class="project-thumb-logo"><img src="${project.logo}" alt="" aria-hidden="true" width="32" height="32"></span></span><span class="project-copy"><span class="project-title"><span class="project-title-text">${project.title}</span><span class="project-arrow" aria-hidden="true">→</span></span><span class="project-description">${project.description}</span><span class="project-type">${project.type}</span></span>`;
+      const attrs = `class="project-row${project.url ? '' : ' is-upcoming'}" data-project-index="${index}" style="--row-delay:${index * 75}ms"`;
+      return project.url
+        ? `<a ${attrs} href="${project.url}" target="_blank" rel="noopener noreferrer">${inner}</a>`
+        : `<div ${attrs} role="group" aria-label="${project.title} · ${project.type}">${inner}</div>`;
+    }).join('');
+    return `<div class="projects-section"><p class="content-kicker">02 &nbsp; / &nbsp; Ejemplos</p><h1>Ejemplos<span>.</span></h1><p class="content-lead">Estas son algunas demostraciones de lo que puedo ofrecer.</p>${rows ? `<div class="project-list" aria-label="Ejemplos de sitios web">${rows}</div>` : ''}</div>`;
   }
 
   function initializeProjectPreview() {
-    projectPreview.innerHTML = projects.map((project, index) => `<img class="project-preview-image${index === 0 ? ' is-active' : ''}" src="${project.image}" alt="" width="1200" height="750" decoding="async">`).join('');
+    projectPreview.innerHTML = projects.map((project, index) => `<div class="project-preview-image${index === 0 ? ' is-active' : ''}"><img class="project-preview-photo" src="${project.image}" alt="" width="1200" height="750" decoding="async"><div class="project-preview-brand"><img src="${project.logo}" alt="" aria-hidden="true" width="40" height="40"><span><strong>${project.brand}</strong><small>${project.brandMeta}</small></span></div></div>`).join('');
     projects.forEach(project => {
       const preload = new Image();
       preload.src = project.image;
@@ -269,6 +274,89 @@
   }
   updateGreeting();
 
+  let localWeatherCode = null;
+  let localTemperature = null;
+  let localWeatherState = 'loading';
+  const rosarioTimezone = 'America/Argentina/Cordoba';
+  const rosarioWeatherUrl = 'https://api.open-meteo.com/v1/forecast?latitude=-32.9468&longitude=-60.6393&current=temperature_2m,weather_code&timezone=America%2FArgentina%2FCordoba';
+
+  function updateLocalClock() {
+    const time = document.getElementById('menu-local-time');
+    if (!time) return;
+    const now = new Date();
+    time.textContent = new Intl.DateTimeFormat(language === 'es' ? 'es-AR' : 'en-GB', {
+      hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: rosarioTimezone
+    }).format(now);
+    time.dateTime = now.toISOString();
+  }
+
+  function weatherDetails(code) {
+    if (code === 0) return { icon: 'sun', es: 'Despejado', en: 'Clear sky' };
+    if (code === 1) return { icon: 'sun-cloud', es: 'Mayormente despejado', en: 'Mostly clear' };
+    if (code === 2) return { icon: 'sun-cloud', es: 'Parcialmente nublado', en: 'Partly cloudy' };
+    if (code === 3) return { icon: 'cloud', es: 'Nublado', en: 'Cloudy' };
+    if (code === 45 || code === 48) return { icon: 'fog', es: 'Neblina', en: 'Fog' };
+    if ([51, 53, 55, 56, 57].includes(code)) return { icon: 'rain', es: 'Llovizna', en: 'Drizzle' };
+    if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return { icon: 'rain', es: 'Lluvia', en: 'Rain' };
+    if ([71, 73, 75, 77, 85, 86].includes(code)) return { icon: 'snow', es: 'Nieve', en: 'Snow' };
+    if ([95, 96, 99].includes(code)) return { icon: 'storm', es: 'Tormenta', en: 'Thunderstorm' };
+    return { icon: 'cloud', es: 'Sin datos', en: 'No data' };
+  }
+
+  function weatherIconMarkup(icon) {
+    const shapes = {
+      sun: '<circle cx="12" cy="12" r="3.5"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>',
+      'sun-cloud': '<circle cx="8" cy="8" r="3"></circle><path d="M8 2v1m0 10v1M2 8h1m10 0h1M3.76 3.76l.7.7m7.08 7.08.7.7m1.5 2.76h-9a3 3 0 0 1-.3-6 5 5 0 0 1 9.55.8 3 3 0 0 1-.45 5.2Z"></path>',
+      cloud: '<path d="M6 18h11a4 4 0 0 0 .2-8 6 6 0 0 0-11.5 1A3.5 3.5 0 0 0 6 18Z"></path>',
+      fog: '<path d="M6 14h11a4 4 0 0 0 .2-8 6 6 0 0 0-11.5 1A3.5 3.5 0 0 0 6 14Zm-2 4h13m-10 3h9"></path>',
+      rain: '<path d="M6 15h11a4 4 0 0 0 .2-8 6 6 0 0 0-11.5 1A3.5 3.5 0 0 0 6 15Zm1 3-1 2m6-2-1 2m6-2-1 2"></path>',
+      snow: '<path d="M6 14h11a4 4 0 0 0 .2-8 6 6 0 0 0-11.5 1A3.5 3.5 0 0 0 6 14Zm2 4v4m-2-2h4m4-2v4m-2-2h4"></path>',
+      storm: '<path d="M6 14h11a4 4 0 0 0 .2-8 6 6 0 0 0-11.5 1A3.5 3.5 0 0 0 6 14Zm6 1-2 4h3l-1 3 4-5h-3l1-2"></path>'
+    };
+    return `<svg viewBox="0 0 24 24" aria-hidden="true">${shapes[icon] || shapes.cloud}</svg>`;
+  }
+
+  function renderLocalWeather() {
+    const icon = document.getElementById('menu-weather-icon');
+    const temperature = document.getElementById('menu-weather-temp');
+    const label = document.getElementById('menu-weather-label');
+    const weather = document.getElementById('menu-local-weather');
+    if (!icon || !temperature || !label || !weather) return;
+
+    const isEnglish = language === 'en';
+    const details = localWeatherState === 'ready' ? weatherDetails(localWeatherCode) : { icon: 'cloud', es: 'Sin datos', en: 'Unavailable' };
+    icon.innerHTML = weatherIconMarkup(details.icon);
+    temperature.textContent = localWeatherState === 'ready' ? `${Math.round(localTemperature)}°C` : '—°';
+    label.textContent = localWeatherState === 'loading' ? (isEnglish ? 'Loading weather' : 'Cargando clima') : (isEnglish ? details.en : details.es);
+    weather.setAttribute('aria-label', `${isEnglish ? 'Rosario weather' : 'Clima en Rosario'}: ${temperature.textContent} ${label.textContent}`);
+  }
+
+  async function updateLocalWeather() {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const response = await fetch(rosarioWeatherUrl, { signal: controller.signal });
+      if (!response.ok) throw new Error(`Weather request failed: ${response.status}`);
+      const data = await response.json();
+      const current = data.current;
+      if (!Number.isFinite(current?.temperature_2m) || !Number.isFinite(current?.weather_code)) throw new Error('Weather data unavailable');
+      localTemperature = current.temperature_2m;
+      localWeatherCode = current.weather_code;
+      localWeatherState = 'ready';
+    } catch {
+      localWeatherState = 'error';
+    } finally {
+      clearTimeout(timeout);
+      renderLocalWeather();
+    }
+  }
+
+  updateLocalClock();
+  renderLocalWeather();
+  updateLocalWeather();
+  window.setInterval(updateLocalClock, 15000);
+  window.setInterval(updateLocalWeather, 30 * 60 * 1000);
+
   function applyLanguage() {
     const isEnglish = language === 'en';
     document.documentElement.lang = language;
@@ -287,12 +375,18 @@
     menu.querySelector('.menu-intro-subtitle').textContent = isEnglish ? 'Tomás Daniel Flores. Web developer.' : 'Tomás Daniel Flores. Desarrollador web.';
     menu.querySelector('[data-target="sites"] .menu-label').textContent = isEnglish ? 'Websites' : 'Sitios web';
     menu.querySelector('[data-target="about"] .menu-label').textContent = isEnglish ? 'About me' : 'Sobre mí';
-    menu.querySelector('.menu-status').textContent = isEnglish ? 'Work in progress' : 'Trabajo en proceso';
+    menu.querySelector('[data-target="projects"] .menu-label').textContent = isEnglish ? 'Examples' : 'Ejemplos';
+    const menuStatus = menu.querySelector('.menu-status');
+    if (menuStatus) menuStatus.textContent = isEnglish ? 'Work in progress' : 'Trabajo en proceso';
     menu.querySelector('[data-target="contact"] .menu-label').textContent = isEnglish ? 'Contact' : 'Contacto';
     backButton.innerHTML = `<span>←</span> ${isEnglish ? 'BACK TO MENU' : 'VOLVER AL MENÚ'}`;
     wrapper.setAttribute('aria-label', isEnglish ? 'Show menu' : 'Mostrar menú');
     stage.querySelector('.hero')?.setAttribute('aria-label', isEnglish ? 'Interactive sphere' : 'Esfera interactiva');
     stage.querySelector('.hint').innerHTML = isEnglish ? 'TOMÁS DANIEL FLORES <span>·</span> CLICK TO EXPLORE' : 'TOMÁS DANIEL FLORES <span>·</span> CLICK PARA EXPLORAR';
+    document.querySelector('.menu-local-info')?.setAttribute('aria-label', isEnglish ? 'Local information for Rosario' : 'Información local de Rosario');
+    document.getElementById('menu-local-time')?.setAttribute('aria-label', isEnglish ? 'Local time in Rosario' : 'Hora local de Rosario');
+    document.querySelector('.menu-weather-source')?.setAttribute('aria-label', isEnglish ? 'Weather data provided by Open-Meteo' : 'Datos del clima provistos por Open-Meteo');
+    renderLocalWeather();
     stage.querySelector('.about-map img')?.setAttribute('alt', isEnglish ? 'Map of Argentina with Santa Fe highlighted' : 'Mapa de Argentina con Santa Fe resaltada');
     greeting.setAttribute('lang', language);
     updateGreeting();
@@ -562,7 +656,6 @@
   });
 
   function openSection(section) {
-    if (section === 'projects') return;
     stage.querySelector('.hero > .about-status')?.remove();
     if (section === 'sites') {
       if (stage.classList.contains('sites-entering')) return;
