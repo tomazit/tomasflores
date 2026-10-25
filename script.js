@@ -78,6 +78,12 @@
     { title: 'Ferretería Don Aníbal', brand: 'DON ANÍBAL', brandMeta: 'FERRETERÍA · ROSARIO', logo: 'assets/projects/ferreteria-don-anibal-logo.svg', description: 'Tienda online para una ferretería familiar de Rosario.', type: 'eCommerce', image: 'assets/projects/ferreteria-don-anibal.jpg', url: 'https://tomazit.github.io/ferreteriadonanibal/', alt: 'Imagen de portada de Ferretería Don Aníbal, ferretería familiar de Rosario.' },
     { title: 'Margen', brand: 'margen®', brandMeta: 'ESTUDIO · BUENOS AIRES', logo: 'assets/projects/margen-logo.svg', description: 'Estudio independiente de diseño: identidad de marca, editorial, packaging y dirección de arte.', type: 'Sitio corporativo', image: 'assets/projects/margen-cover.svg', url: 'https://tomazit.github.io/margen/', alt: 'Portada de Margen, estudio independiente de diseño con una identidad editorial en tonos marfil y bordó.' }
   ];
+  const examplesMenuIcon = menu.querySelector('[data-target="projects"] .menu-icon');
+  const examplesDefaultIcon = examplesMenuIcon.innerHTML;
+  let examplesIconTimeout = 0;
+  let examplesIconInterval = 0;
+  let examplesIconSwapTimeout = 0;
+  let examplesLogoIndex = 0;
   let activePreviewIndex = 0;
   let expandedPreviewTrigger = null;
 
@@ -247,6 +253,43 @@
     });
   }
   initializeProjectPreview();
+
+  function resetExamplesMenuIcon() {
+    window.clearTimeout(examplesIconTimeout);
+    window.clearTimeout(examplesIconSwapTimeout);
+    window.clearInterval(examplesIconInterval);
+    examplesIconTimeout = 0;
+    examplesIconInterval = 0;
+    examplesLogoIndex = 0;
+    examplesMenuIcon.classList.remove('is-changing');
+    examplesMenuIcon.innerHTML = examplesDefaultIcon;
+  }
+
+  function showExamplesMenuLogo() {
+    if (!projects.length || !stage.classList.contains('menu-open')) return;
+    const project = projects[examplesLogoIndex % projects.length];
+    examplesMenuIcon.classList.add('is-changing');
+    examplesIconSwapTimeout = window.setTimeout(() => {
+      if (!stage.classList.contains('menu-open')) return;
+      const logo = document.createElement('img');
+      logo.src = project.logo;
+      logo.alt = '';
+      logo.setAttribute('aria-hidden', 'true');
+      examplesMenuIcon.replaceChildren(logo);
+      requestAnimationFrame(() => examplesMenuIcon.classList.remove('is-changing'));
+    }, 240);
+    examplesLogoIndex = (examplesLogoIndex + 1) % projects.length;
+  }
+
+  function startExamplesMenuIconCycle() {
+    resetExamplesMenuIcon();
+    if (reduceMotion) return;
+    // Include the menu's entrance transition in the two-second idle delay.
+    examplesIconTimeout = window.setTimeout(() => {
+      showExamplesMenuLogo();
+      examplesIconInterval = window.setInterval(showExamplesMenuLogo, 3000);
+    }, 2400);
+  }
 
   function activateProjectPreview(index) {
     if (!Number.isInteger(index) || index < 0 || index >= projects.length || index === activePreviewIndex) return;
@@ -559,6 +602,8 @@
     stage.dataset.section = section;
     if (state === 'menu') stage.classList.add('menu-open');
     if (state === 'content') stage.classList.add('content-open');
+    if (state === 'menu') startExamplesMenuIconCycle();
+    else resetExamplesMenuIcon();
     ensureCanvasCapacity(targetOrbWidth(state, section));
     const inContent = state === 'content';
     wrapper.setAttribute('aria-pressed', String(state !== 'home'));

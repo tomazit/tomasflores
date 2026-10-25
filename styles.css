@@ -73,6 +73,9 @@ button { color: inherit; font: inherit; }
 .menu-item:hover, .menu-item:focus-visible { padding-left: 10px; color: var(--accent); outline: none; }
 .menu-item .menu-icon, .menu-item i { color: var(--accent); font-family: 'DM Mono', monospace; font-size: 9px; font-style: normal; letter-spacing: .08em; }
 .menu-item .menu-icon { display: inline-flex; width: 18px; height: 18px; align-items: center; justify-content: center; }
+.menu-item .menu-icon { transition: opacity .72s ease, transform .72s ease; }
+.menu-item .menu-icon.is-changing { opacity: 0; transform: scale(.72); }
+.menu-item .menu-icon img { display: block; width: 100%; height: 100%; border-radius: 4px; object-fit: contain; }
 .menu-item .menu-label { color: inherit; font: inherit; text-decoration: none; }
 .menu-label-group { display: flex; min-width: 0; align-items: baseline; flex-wrap: wrap; gap: 0 10px; }
 .menu-item .menu-status { color: rgba(238,240,239,.43); font: 8px 'DM Mono', monospace; letter-spacing: .035em; }

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Promo · Tomás Daniel Flores</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:green;color:#eeeeed;font-family:Manrope,system-ui,sans-serif}
+body{display:flex;flex-direction:column}
+.bar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding:10px 14px;background:#101214;border-bottom:1px solid #23262a;font:12px 'DM Mono',monospace;color:#aeb1b8;max-height:42vh;overflow:auto}
+.bar label{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.bar select,.bar button,.bar summary{background:#1a1d21;color:#eee;border:1px solid #33373d;border-radius:6px;padding:5px 8px;font:inherit;cursor:pointer}
+.bar input[type=range]{width:110px}
+.bar input[type=color]{width:28px;height:24px;padding:2px;background:#1a1d21;border:1px solid #454a51;border-radius:5px;cursor:pointer}
+.bar details{flex:1 0 100%;}
+.bar summary{display:inline-flex;align-items:center;min-height:30px;}
+.tune-controls{display:flex;flex-wrap:wrap;gap:10px 16px;padding:12px 2px 3px}
+.tune-group{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:8px 10px;border:1px solid #2c3035;border-radius:8px}
+.tune-group legend{padding:0 5px;color:#d5d7da;font-size:11px}
+.tune-range{display:grid!important;grid-template-columns:auto 42px;gap:4px 8px!important;white-space:normal!important}
+.tune-range input{grid-column:1 / 3;width:130px!important;accent-color:#9bc9c5}
+.tune-range output{color:#e8e9eb;text-align:right}
+.tune-colors label{gap:7px}
+.bar .reset{border-color:#705c51;color:#ffd4bc}
+.bar.off{display:none}
+.view{flex:1;min-height:0;display:grid;place-items:center;overflow:auto;padding:12px}
+.view.auto{padding:0;overflow:hidden}
+.holder{position:relative;flex:none}
+.stage{position:absolute;left:0;top:0;overflow:hidden;transform-origin:0 0;background:var(--bg);color:var(--main-text,#eeeeed)}
+.stage::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E")}
+.orb{position:absolute;transform:translate(-50%,-50%)}
+.orb canvas{position:absolute;inset:0;width:100%;height:100%}
+.halo{position:absolute;inset:10.5%;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%);filter:blur(calc(var(--u)*20px))}
+.ring{position:absolute;inset:10.5%;border:1px solid var(--ring);border-radius:50%;transform:scaleY(.31) rotate(-23deg)}
+.ring.two{inset:6%;opacity:.65;transform:scaleY(.28) rotate(28deg)}
+.copy{position:absolute;z-index:2}
+.port{--h:118;--s:30;--k:21}
+.land{--h:68;--s:19;--k:12}
+.port .copy{left:0;right:0;bottom:calc(var(--u)*84px);padding:0 calc(var(--u)*80px);text-align:center}
+.land .copy{left:51%;right:calc(var(--u)*64px);top:50%;transform:translateY(-50%)}
+.kicker{margin:0 0 calc(var(--u)*22px);font:500 calc(var(--k)*var(--kicker-scale,1)*var(--u)*1px)/1 'DM Mono',monospace;letter-spacing:.16em;color:var(--accent)}
+h1{margin:0;font:400 calc(var(--h)*var(--title-scale,1)*var(--u)*1px)/1.02 'Instrument Serif',serif;letter-spacing:-.025em}
+h1 em{color:var(--accent);font-style:normal}
+.sub{margin:calc(var(--u)*24px) 0 0;font:400 calc(var(--s)*var(--sub-scale,1)*var(--u)*1px)/1.35 Manrope,sans-serif;color:var(--sub-text,rgba(238,240,239,.68))}
+.port .sub{max-width:calc(var(--u)*820px);margin-left:auto;margin-right:auto}
+.foot{display:flex;gap:calc(var(--u)*18px);align-items:center;margin-top:calc(var(--u)*34px);font:500 calc(var(--k)*var(--foot-scale,1)*var(--u)*1px)/1 'DM Mono',monospace;letter-spacing:.12em;color:var(--foot-text,#9a9ca4)}
+.port .foot{justify-content:center}
+.foot b{color:var(--accent);font-weight:500}
+.compact .sub{display:none}
+.compact .foot{margin-top:calc(var(--u)*22px)}
+.notext .copy{display:none}
+[contenteditable]:focus{outline:1px dashed rgba(255,255,255,.35);outline-offset:6px}
+</style>
+</head>
+<body>
+<div class="bar" id="bar">
+  <label>Formato <select id="fmt"></select></label>
+  <label>Color <select id="pal"><option value="gris">Gris</option><option value="verde">Verde</option><option value="azul">Azul</option><option value="rojo">Rojo</option></select></label>
+  <label><input type="checkbox" id="spin" checked> Girar</label>
+  <label>Ángulo <input type="range" id="ang" min="0" max="360" value="40"></label>
+  <label><input type="checkbox" id="txt" checked> Texto</label>
+  <label><input type="checkbox" id="real"> Tamaño real 1:1</label>
+  <button class="reset" id="reset" type="button">Restablecer predeterminados</button>
+  <button id="hide" type="button">Ocultar controles (H)</button>
+  <details id="customize">
+    <summary>Personalizar tamaños y colores</summary>
+    <div class="tune-controls">
+      <fieldset class="tune-group">
+        <legend>Tamaño del texto</legend>
+        <label class="tune-range">Título <output id="title-size-out" for="title-size"></output><input id="title-size" type="range" min="50" max="200" step="5" value="100"></label>
+        <label class="tune-range">Descripción <output id="sub-size-out" for="sub-size"></output><input id="sub-size" type="range" min="50" max="200" step="5" value="100"></label>
+        <label class="tune-range">Texto superior <output id="kicker-size-out" for="kicker-size"></output><input id="kicker-size" type="range" min="50" max="200" step="5" value="100"></label>
+        <label class="tune-range">Firma inferior <output id="foot-size-out" for="foot-size"></output><input id="foot-size" type="range" min="50" max="200" step="5" value="100"></label>
+      </fieldset>
+      <fieldset class="tune-group tune-colors">
+        <legend>Colores personalizados</legend>
+        <label>Fondo <input id="bg-color" type="color" value="#090a0c"></label>
+        <label>Título y texto <input id="main-color" type="color" value="#eeeeed"></label>
+        <label>Descripción <input id="sub-color" type="color" value="#a6a7a8"></label>
+        <label>Acento <input id="accent-color" type="color" value="#c7c7cd"></label>
+        <label>Firma <input id="foot-color" type="color" value="#9a9ca4"></label>
+        <label>Puntos de esfera <input id="dot-color" type="color" value="#91939e"></label>
+      </fieldset>
+    </div>
+  </details>
+</div>
+<div class="view" id="view"><div class="holder" id="holder">
+  <div class="stage port" id="stage">
+    <div class="orb" id="orb"><div class="halo"></div><div class="ring"></div><div class="ring two"></div><canvas id="cv"></canvas></div>
+    <div class="copy">
+      <p class="kicker" contenteditable="true" spellcheck="false">DESARROLLO WEB · ROSARIO, ARGENTINA</p>
+      <h1 contenteditable="true" spellcheck="false">Sitios web<br>a medida<em>.</em></h1>
+      <p class="sub" contenteditable="true" spellcheck="false">Landing pages, sitios corporativos y tiendas online. Claros, rápidos y bien cuidados.</p>
+      <div class="foot"><b>tomasflores.dev</b><span>·</span><span contenteditable="true" spellcheck="false">TOMÁS DANIEL FLORES</span></div>
+    </div>
+  </div>
+</div></div>
+<script>
+const P={
+auto:{n:'Ventana actual (auto)'},
+ig45:{n:'Instagram post 4:5 · 1080×1350',w:1080,h:1350,l:'port',o:.9,cy:.36,u:1},
+ig11:{n:'Instagram cuadrado · 1080×1080',w:1080,h:1080,l:'port',o:.6,cy:.29,u:.8},
+story:{n:'Story / Reel 9:16 · 1080×1920',w:1080,h:1920,l:'port',o:1,cy:.33,u:1.15},
+li:{n:'LinkedIn / Facebook · 1200×627',w:1200,h:627,l:'land',o:1.02,cx:.26,u:1},
+x:{n:'X / YouTube 16:9 · 1600×900',w:1600,h:900,l:'land',o:1.02,cx:.26,u:1.435},
+ban:{n:'Banner LinkedIn · 1584×396',w:1584,h:396,l:'land',o:1.05,cx:.17,u:.63,c:1}};
+const PAL={
+gris:{bg:'#090a0c',ac:'#c7c7cd',f:[205,205,214],b:[145,147,158],g:'rgba(206,207,222,.10)',r:'rgba(206,207,222,.16)'},
+verde:{bg:'#0c1519',ac:'#9bc9c5',f:[148,199,195],b:[65,118,126],g:'rgba(49,130,128,.23)',r:'rgba(145,199,195,.22)'},
+azul:{bg:'#0b111b',ac:'#92c8ff',f:[143,196,255],b:[72,113,174],g:'rgba(68,128,206,.22)',r:'rgba(126,181,255,.2)'},
+rojo:{bg:'#190d10',ac:'#ff9a92',f:[255,139,128],b:[173,72,73],g:'rgba(200,64,70,.2)',r:'rgba(255,136,125,.2)'}};
+const $=id=>document.getElementById(id);
+const fmt=$('fmt'),pal=$('pal'),view=$('view'),holder=$('holder'),stage=$('stage'),orb=$('orb'),cv=$('cv'),ctx=cv.getContext('2d');
+for(const k in P){const o=document.createElement('option');o.value=k;o.textContent=P[k].n;fmt.appendChild(o)}
+fmt.value='ig45';
+let OB=900,rot=.7,last=0;
+const colorIds={bg:'bg-color',main:'main-color',sub:'sub-color',accent:'accent-color',foot:'foot-color'};
+const editableNodes=[...document.querySelectorAll('[contenteditable="true"]')];
+const initialCopy=editableNodes.map(node=>node.innerHTML);
+const initialColorValues=Object.fromEntries(Object.entries(colorIds).map(([key,id])=>[key,$(id).value]));
+const initialDotColor=$('dot-color').value;
+const initialTextSizes={title:100,sub:100,kicker:100,foot:100};
+function hexRgb(hex){return [parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16)]}
+function syncPaletteColors(){
+  const c=PAL[pal.value];
+  $('bg-color').value=c.bg;$('accent-color').value=c.ac;
+  $('dot-color').value='#'+c.b.map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+function applyTextSizes(){
+  for(const [key,id] of [['title','title-size'],['sub','sub-size'],['kicker','kicker-size'],['foot','foot-size']]){
+    const value=Number($(id).value);stage.style.setProperty(`--${key==='title'?'title':key}-scale`,value/100);
+    $(`${key}-size-out`).value=`${value}%`;
+  }
+}
+function setStageColorVars(){
+  stage.style.setProperty('--bg',$('bg-color').value);
+  stage.style.setProperty('--accent',$('accent-color').value);
+  stage.style.setProperty('--main-text',$('main-color').value);
+  stage.style.setProperty('--sub-text',$('sub-color').value);
+  stage.style.setProperty('--foot-text',$('foot-color').value);
+}
+// esfera de Fibonacci con semilla fija (resultado reproducible)
+let sd=7;const rnd=()=>{sd|=0;sd=sd+0x6D2B79F5|0;let t=Math.imul(sd^sd>>>15,1|sd);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const pts=[],N=1400,GA=Math.PI*(3-Math.sqrt(5));
+for(let i=0;i<N;i++){const y=1-i/(N-1)*2,r=Math.sqrt(1-y*y),t=GA*i;pts.push({x:Math.cos(t)*r,y,z:Math.sin(t)*r,s:rnd()*6.283,z0:.48+rnd()*.78})}
+function layout(){
+  const key=fmt.value,p=P[key],real=$('real').checked;let w,h,l,u,o,cx=.5,cy=.36,comp=0;
+  view.classList.toggle('auto',key==='auto');
+  if(key==='auto'){w=view.clientWidth;h=view.clientHeight;l=w/h>1.25?'land':'port';u=l==='land'?h/627:w/1080;
+    if(l==='land'){o=h*1.02;cx=.26;cy=.5}else{o=Math.min(w*.9,h*.6)}}
+  else{w=p.w;h=p.h;l=p.l;u=p.u;cx=p.cx||.5;cy=p.cy||(l==='land'?.5:.36);o=l==='port'?p.o*w:p.o*h;comp=p.c}
+  const s=(key==='auto'||real)?1:Math.min((view.clientWidth-24)/w,(view.clientHeight-24)/h,1);
+  holder.style.width=w*s+'px';holder.style.height=h*s+'px';
+  stage.style.width=w+'px';stage.style.height=h+'px';stage.style.transform='scale('+s+')';
+  stage.className='stage '+l+(comp?' compact':'')+($('txt').checked?'':' notext');
+  stage.style.setProperty('--u',u);
+  orb.style.width=orb.style.height=o+'px';orb.style.left=cx*w+'px';orb.style.top=cy*h+'px';
+  OB=o;cv.width=cv.height=Math.round(o*2);
+}
+function paint(){
+  const c=PAL[pal.value];
+  stage.style.setProperty('--glow',c.g);stage.style.setProperty('--ring',c.r);
+  setStageColorVars();
+}
+function draw(t){
+  requestAnimationFrame(draw);
+  const dt=Math.min((t-(last||t))/1000,.05);last=t;
+  if($('spin').checked)rot+=dt*.12;else rot=$('ang').value*Math.PI/180;
+  const c=PAL[pal.value],dotColor=hexRgb($('dot-color').value),R=OB*.385,cx=OB/2,k=OB/940,cs=Math.cos(rot),sn=Math.sin(rot),tilt=-.17,ct=Math.cos(tilt),st=Math.sin(tilt);
+  ctx.setTransform(2,0,0,2,0,0);ctx.clearRect(0,0,OB,OB);
+  const pr=pts.map(p=>{const x=p.x*cs-p.z*sn,z=p.x*sn+p.z*cs;return{x:cx+x*R,y:cx+(p.y*ct-z*st)*R,d:p.y*st+z*ct,s:p.z0}});
+  pr.sort((a,b)=>a.d-b.d);
+  for(const p of pr){
+    const f=(p.d+1)/2,al=.12+f*.8,sz=p.s*(.55+f*.72)*k*1.1;
+    const sm=Math.max(0,Math.min(1,(f+.12)/.78)),wm=Math.max(0,Math.min(.78,(f-.68)*1.65));
+    const col=dotColor.map((v,i)=>{const a=v+(c.f[i]-v)*sm;return Math.round(a+(255-a)*wm)});
+    ctx.beginPath();ctx.arc(p.x,p.y,sz,0,6.283);ctx.fillStyle='rgba('+col+','+al+')';ctx.fill();
+  }
+}
+['fmt','txt','real'].forEach(i=>$(i).addEventListener('change',layout));
+$('pal').addEventListener('change',()=>{syncPaletteColors();paint()});
+for(const [key,id] of Object.entries(colorIds))$(id).addEventListener('input',setStageColorVars);
+for(const id of ['title-size','sub-size','kicker-size','foot-size'])$(id).addEventListener('input',applyTextSizes);
+function resetDefaults(){
+  fmt.value='ig45';pal.value='gris';$('spin').checked=true;$('ang').value='40';$('txt').checked=true;$('real').checked=false;
+  editableNodes.forEach((node,index)=>node.innerHTML=initialCopy[index]);
+  for(const [key,id] of Object.entries(colorIds))$(id).value=initialColorValues[key];
+  $('dot-color').value=initialDotColor;
+  $('title-size').value=initialTextSizes.title;$('sub-size').value=initialTextSizes.sub;$('kicker-size').value=initialTextSizes.kicker;$('foot-size').value=initialTextSizes.foot;
+  $('customize').open=false;layout();applyTextSizes();paint();
+}
+$('reset').addEventListener('click',resetDefaults);
+$('ang').addEventListener('input',()=>{$('spin').checked=false});
+const bar=$('bar');
+function toggleBar(){bar.classList.toggle('off');layout()}
+$('hide').addEventListener('click',toggleBar);
+addEventListener('keydown',e=>{if(e.target.isContentEditable)return;if(e.key==='h'||e.key==='H'||(e.key==='Escape'&&bar.classList.contains('off')))toggleBar()});
+addEventListener('resize',layout);
+layout();applyTextSizes();paint();requestAnimationFrame(draw);
+</script>
+</body>
+</html>
